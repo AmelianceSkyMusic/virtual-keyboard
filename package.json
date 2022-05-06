@@ -9,7 +9,10 @@
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
     "start": "webpack serve",
-    "dev": "webpack --mode=development --watch"
+    "dev": "webpack --mode=development --watch",
+
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [
     "virtual",
@@ -38,5 +41,9 @@
     "webpack": "^5.72.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.8.1"
-  }
+  },
+  "repository": {
+    "url": "git+https://github.com/AmelianceSkyMusic/virtual-keyboard.git"
+  },
+  "homepage": "http://AmelianceSkyMusic.github.io/virtual-keyboard"
 }
