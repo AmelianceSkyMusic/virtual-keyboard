@@ -82,7 +82,7 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
-      filename: filename('html'), // #asm имя файла выхода
+      // filename: filename('html'), // #asm имя файла выхода
       // filename: '[hash]_another-name.html', // #asm возможность переименовать файл при билде
       // minify: false, // #asm отключение минификации
       inject: 'body', // #asm вставка js в конец body
@@ -139,10 +139,6 @@ module.exports = () => {
     }));
   } else {
     config.mode = 'development';
-
-    config.plugins.push(new MiniCssExtractPlugin({
-      filename: filename('css'), // #asm имя файла выхода
-    }));
   }
   return config;
 };
