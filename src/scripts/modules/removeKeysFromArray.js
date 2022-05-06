@@ -11,6 +11,4 @@ function removeKeysFromArray(array, keysToRemove) {
 // >----------------------------------------------------------------<
 // >                             EXPORT                             <
 // >----------------------------------------------------------------<
-export {
-  removeKeysFromArray,
-};
+export default removeKeysFromArray;

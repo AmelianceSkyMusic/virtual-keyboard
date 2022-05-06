@@ -15,6 +15,4 @@ function createHTMLElem(parent, elementType, classNames = '', text = '') { // cr
 // >                             EXPORT                             <
 // >----------------------------------------------------------------<
 
-export {
-  createHTMLElem,
-};
+export default createHTMLElem;

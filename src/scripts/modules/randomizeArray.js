@@ -17,6 +17,4 @@ function randomizeArray(array) {
 // >----------------------------------------------------------------<
 // >                             EXPORT                             <
 // >----------------------------------------------------------------<
-export {
-  randomizeArray,
-};
+export default randomizeArray;

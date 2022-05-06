@@ -15,6 +15,4 @@ function createHTMLElemAfter(parent, elementType, classNames = '', text = '') { 
 // >                             EXPORT                             <
 // >----------------------------------------------------------------<
 
-export {
-  createHTMLElemAfter,
-};
+export default createHTMLElemAfter;

@@ -2,7 +2,7 @@ import './style/scss/dark.scss';
 import './style/style.scss';
 // import './css/style.css';
 import { msg as Msg } from './scripts/modules/asm';
-import Key from './Key';
+// import Key from './Key';
 
 Msg('----------------------');
 Msg('----------------------');
@@ -10,6 +10,8 @@ Msg('START');
 Msg('----------------------');
 Msg('----------------------');
 Msg('----------------------');
+
+console.error('ERROR');
 
 // import imgFile from './assets/img/photo.jpg';
 

@@ -15,6 +15,4 @@ function createHTMLElemBefore(parent, elementType, classNames = '', text = '') {
 // >                             EXPORT                             <
 // >----------------------------------------------------------------<
 
-export {
-  createHTMLElemBefore,
-};
+export default createHTMLElemBefore;

@@ -12,7 +12,7 @@ function msgG(...args) {
   const lastMsgPosition = args.length - 1;
   console.group(args[0]);
 
-  for (let i = 1; i <= lastMsgPosition; i++) {
+  for (let i = 1; i <= lastMsgPosition; i += 1) {
     console.log(args[i]);
   }
 

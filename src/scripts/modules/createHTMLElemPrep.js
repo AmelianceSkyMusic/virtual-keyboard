@@ -15,6 +15,4 @@ function createHTMLElemPrep(parent, elementType, classNames = '', text = '') { /
 // >                             EXPORT                             <
 // >----------------------------------------------------------------<
 
-export {
-  createHTMLElemPrep,
-};
+export default createHTMLElemPrep;

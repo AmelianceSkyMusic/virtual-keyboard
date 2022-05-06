@@ -10,6 +10,4 @@ function sortAB(arr) {
 // >                             EXPORT                             <
 // >----------------------------------------------------------------<
 
-export {
-  sortAB,
-};
+export default sortAB;

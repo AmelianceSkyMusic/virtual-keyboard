@@ -13,6 +13,4 @@ function getRandomNumber(min = 0, max = 9) {
 // >----------------------------------------------------------------<
 // >                             EXPORT                             <
 // >----------------------------------------------------------------<
-export {
-  getRandomNumber,
-};
+export default getRandomNumber;

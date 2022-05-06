@@ -1,11 +1,12 @@
-import { addTimeForwardZero } from './addTimeForwardZero.js';
+import addTimeForwardZero from './addTimeForwardZero';
 
 // >----------------------------------------------------------------<
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-function getUserDate(date = new Date(), daysType = 'English') {
-  if (typeof date === 'number') date = new Date(date);
+function getUserDate(d = new Date(), daysType = 'English') {
+  let date = d;
+  if (typeof date === 'number') date = new Date(d);
 
   let days = [];
 
@@ -63,6 +64,4 @@ function getUserDate(date = new Date(), daysType = 'English') {
 // >----------------------------------------------------------------<
 // >                             EXPORT                             <
 // >----------------------------------------------------------------<
-export {
-  getUserDate,
-};
+export default getUserDate;

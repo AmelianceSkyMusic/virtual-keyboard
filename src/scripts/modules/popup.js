@@ -1,4 +1,4 @@
-import { createHTMLElem } from './createHTMLElem.js';
+import createHTMLElem from './createHTMLElem';
 
 // >----------------------------------------------------------------<
 // >                              INIT                              <
@@ -11,34 +11,34 @@ const popup = {};
 // >----------------------------------------------------------------<
 
 function create(title, text, button = '', action = () => {}) {
-  function closePopup(element, popup, action) {
+  function closePopup(element, popupclosePopup, actionClosePopup) {
     element.addEventListener('click', () => {
-      popup.classList.remove('show'); // hide popup with animation
+      popupclosePopup.classList.remove('show'); // hide popup with animation
 
       // hideBlackout(); // hide blackout with aniamtion
-      action();
+      actionClosePopup();
       setTimeout(() => {
-        popup.remove(); // remove popup
+        popupclosePopup.remove(); // remove popup
       }, 300);
     });
   }
 
   const zeroBlock = document.querySelector('.zero-block');
 
-  const popup = createHTMLElem(zeroBlock, 'div', ['popup']);
+  const popUp = createHTMLElem(zeroBlock, 'div', ['popup']);
 
-  const popupTitle = createHTMLElem(popup, 'h3', ['h3', 'popup__title'], title);
+  createHTMLElem(popUp, 'h3', ['h3', 'popup__title'], title);
 
-  const popuptext = createHTMLElem(popup, 'p1', ['p1', 'popup__text'], text);
+  createHTMLElem(popUp, 'p1', ['p1', 'popup__text'], text);
 
   if (button !== '') {
-    const popupButton = createHTMLElem(popup, 'button', ['button', 'popup__button'], button);
-    closePopup(popupButton, popup, action);
+    const popupButton = createHTMLElem(popUp, 'button', ['button', 'popup__button'], button);
+    closePopup(popupButton, popUp, action);
   }
 
   // showBlackout();
   setTimeout(() => {
-    popup.classList.add('show');
+    popUp.classList.add('show');
   }, 0);
 }
 
@@ -52,6 +52,4 @@ popup.create = create;
 // >                             EXPORT                             <
 // >----------------------------------------------------------------<
 
-export {
-  popup,
-};
+export default popup;
