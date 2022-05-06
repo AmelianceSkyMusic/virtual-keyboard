@@ -2,16 +2,29 @@ import './style/scss/dark.scss';
 import './style/style.scss';
 // import './css/style.css';
 import { msg as Msg } from './scripts/modules/asm';
+// import html from './html';
+// import htmlGenerator from './html-generator';
+// import  from './gui';
 // import Key from './Key';
+import APP from './app';
+import KEYS_MAP from './keysMap';
+import KEYBOARD_KEYS from './keyboardKeys';
+import htmlGenerator from './html-generator';
 
-Msg('----------------------');
-Msg('----------------------');
-Msg('START');
-Msg('----------------------');
-Msg('----------------------');
-Msg('----------------------');
+htmlGenerator(KEYBOARD_KEYS, KEYS_MAP);
 
-console.error('ERROR');
+const getCharFromKeyboard = (event, language) => {
+  const lowercase = language === 'EN' ? 0 : 2;
+  const uppercase = language === 'EN' ? 1 : 3;
+
+  if (event.shiftKey && event.getModifierState('CapsLock')) {
+    if (KEYS_MAP[event.code]) Msg(KEYS_MAP[event.code][lowercase]);
+  } else if (event.shiftKey || event.getModifierState('CapsLock')) {
+    if (KEYS_MAP[event.code]) Msg(KEYS_MAP[event.code][uppercase]);
+  } else if (KEYS_MAP[event.code]) Msg(KEYS_MAP[event.code][lowercase]);
+};
+
+document.addEventListener('keydown', (event) => getCharFromKeyboard(event, 'RU'));
 
 // import imgFile from './assets/img/photo.jpg';
 
