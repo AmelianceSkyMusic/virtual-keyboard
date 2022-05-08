@@ -109,19 +109,19 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 16px;
+    gap: 32px;
 }
 
 .textarea {
     font-family: sans-serif;
     font-size: large;
-    color: red;
+    color: rgba(136, 136, 136, 1);
 
-    // background: rgba(255, 35, 40, 0.2);
-    background: transparent;
+    background: rgba(136, 136, 136, 0.025);
+    // background: transparent;
     border-radius: 8px;
     // border: 4px solid red;
-    border: 1px solid red;
+    // border: 1px solid rgba(136, 136, 136, 0.05);
     width: 100%;
     height: 140px;
     resize: none;
@@ -134,20 +134,67 @@
     flex-wrap: wrap;
     justify-content: start;
     .key {
+        .p1 {
+            // font-weight: 700;
+            font-size: 20px;
+        }
         cursor: pointer;
         user-select: none;
         display: flex;
         justify-content: center;
         align-items: center;
         border-radius: 8px;
-        color: red;
-        border: 1px solid red;
+        // border: 1px solid red;
+        background: rgba(136, 136, 136, 0.05);
         width: 64px;
         height: 64px;
-        &:hover {
-            background-color: sienna;
+        transform: scale(100%, 100%);
+        transition: transform 0.05s ease-in-out;
+
+
+
+            --keyTapAnimation-scale-release: scale(100%, 100%);
+            --keyTapAnimation-scale-press: scale(80%, 80%);
+            --keyTapAnimation-color-release: rgba(136, 136, 136, 0.05);
+            --keyTapAnimation-color-press: rgba(160, 81, 45, 0.5);
+            animation-name: keyTapReleaseAnimation;
+            animation-duration: 0.08s;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+
+        @media (hover: hover) {
+            &:hover {
+                transition: background 0.2s ease-in-out;
+                background: rgba(160, 81, 45, 0.5);
+            }
+
+        }
+        &.tap{
+            // background: rgba(160, 81, 45, 0.5);
+            // transform: scale(95%, 95%);
+
+
+            animation-name: keyTapPressAnimation;
+            animation-duration: 0.08s;
+            animation-timing-function: ease-in;
+            animation-fill-mode: forwards;
         }
     }
+}
+
+
+
+@keyframes keyTapPressAnimation {
+    0% { transform: var(--keyTapAnimation-scale-release);
+        background: var(--keyTapAnimation-color-press);}
+    100% { transform: var(--keyTapAnimation-scale-press);
+        background: var(--keyTapAnimation-color-press);}
+}
+@keyframes keyTapReleaseAnimation {
+    0% { transform: var(--keyTapAnimation-scale-press);
+        background: var(--keyTapAnimation-color-press);}
+    99% { background: var(--keyTapAnimation-color-press); }
+    100% { transform: var(--keyTapAnimation-scale-release);}
 }
 
 
@@ -170,6 +217,84 @@
     // .arrow-left { width: 184px;}
     // .arrow-down { width: 184px;}
     // .arrow-right { width: 184px;}
+    .backspace,
+    .tab,
+    .delete,
+    .caps-lock,
+    .enter,
+    .shift-left,
+    .shift-right,
+    .control-left,
+    .meta-left,
+    .alt-left,
+    .alt-right,
+    .control-right{
+        background: rgba(136, 136, 136, 0.2);
+        --keyTapAnimation-scale-press: scale(80%, 80%);
+        --keyTapAnimation-color-release: rgba(136, 136, 136, 0.2);
+        --keyTapAnimation-color-press: rgba(136, 136, 136, 0.3);
+        @media (hover: hover) {
+            &:hover {
+                transition: background 0.2s ease-in-out;
+                background: rgba(136, 136, 136, 0.4);
+            }
+
+        }
+        &.enable {
+            background: rgba(136, 136, 136, 0.5);
+            @media (hover: hover) {
+                &:hover {
+                    transition: background 0.2s ease-in-out;
+                    background: rgba(136, 136, 136, 0.7);
+                }
+            }
+
+        }
+    }
+
+    .arrow-up,
+    .arrow-left,
+    .arrow-down,
+    .arrow-right {
+        background: rgba(136, 136, 136, 0.05);
+        --keyTapAnimation-color-release: rgba(136, 136, 136, 0.05);
+        --keyTapAnimation-color-press: rgba(136, 136, 136, 0.2);
+        @media (hover: hover) {
+            &:hover {
+                transition: background 0.2s ease-in-out;
+                background: rgba(136, 136, 136, 0.2);
+            }
+
+        }
+    }
+
+    .language {
+        background: rgba(136, 136, 136, 0.1);
+        --keyTapAnimation-color-release: rgba(136, 136, 136, 0.1);
+        --keyTapAnimation-color-press: rgba(136, 136, 136, 0.3);
+        @media (hover: hover) {
+            &:hover {
+                transition: background 0.2s ease-in-out;
+                background: rgba(136, 136, 136, 0.3);
+            }
+
+        }
+    }
+
+    // fix scales for non square keys
+    .backspace { --keyTapAnimation-scale-press: scale(calc((100%/184) * ( 184 - (64/100*20))), 80%);}
+    .tab { --keyTapAnimation-scale-press: scale(calc((100%/96) * ( 96 - (64/100*20))), 80%); }
+    .delete { --keyTapAnimation-scale-press: scale(calc((100%/72) * ( 72 - (64/100*20))), 80%); }
+    .caps-lock { --keyTapAnimation-scale-press: scale(calc((100%/128) * ( 128 - (64/100*20))), 80%); }
+    .enter { --keyTapAnimation-scale-press: scale(calc((100%/200) * ( 200 - (64/100*20))), 80%); }
+    .shift-left { --keyTapAnimation-scale-press: scale(calc((100%/160) * ( 160 - (64/100*20))), 80%); }
+    .shift-right { --keyTapAnimation-scale-press: scale(calc((100%/88) * ( 88 - (64/100*20))), 80%); }
+    .control-left { --keyTapAnimation-scale-press: scale(calc((100%/96) * ( 96 - (64/100*20))), 80%); }
+    .meta-left { --keyTapAnimation-scale-press: scale(calc((100%/80) * ( 80 - (64/100*20))), 80%); }
+    .alt-left { --keyTapAnimation-scale-press: scale(calc((100%/80) * ( 80 - (64/100*20))), 80%); }
+    .space { --keyTapAnimation-scale-press: scale(calc((100%/472) * ( 472 - (64/100*20))), 80%); }
+    .alt-right { --keyTapAnimation-scale-press: scale(calc((100%/80) * ( 80 - (64/100*20))), 80%); }
+    .control-right { --keyTapAnimation-scale-press: scale(calc((100%/96) * ( 96 - (64/100*20))), 80%); }
 }
 
 
