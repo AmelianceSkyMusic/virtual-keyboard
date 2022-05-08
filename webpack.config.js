@@ -133,12 +133,12 @@ const config = {
 module.exports = () => {
   if (isProduction) {
     config.mode = 'production';
+  } else {
+    config.mode = 'development';
 
     config.plugins.push(new MiniCssExtractPlugin({
       filename: filename('css'), // #asm имя файла выхода
     }));
-  } else {
-    config.mode = 'development';
   }
   return config;
 };
