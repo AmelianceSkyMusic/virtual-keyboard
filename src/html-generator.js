@@ -1,4 +1,7 @@
-import audioS from './assets/sounds/pen-click-and-release.mp3';
+import clickSoftAudio from './assets/sounds/typewriter-soft-click.mp3';
+import clickDoubleAudio from './assets/sounds/pen-click-and-release.mp3';
+import clickHardAudio from './assets/sounds/typewriter-hard-click.mp3';
+
 import toKebabCase from './scripts/others/toKebabCase';
 import APP from './app';
 import { KEYS_MAP, KEYBOARD_KEYS } from './keysMap';
@@ -16,7 +19,18 @@ import {
 // >----------------------------------------------------------------<
 // >                            FUNCTIONS                           <
 // >----------------------------------------------------------------<
-
+function playSoftClick() {
+  const audio = new Audio(clickSoftAudio);
+  audio.play();
+}
+function playHardClick() {
+  const audio = new Audio(clickHardAudio);
+  audio.play();
+}
+function playDoubleClick() {
+  const audio = new Audio(clickDoubleAudio);
+  audio.play();
+}
 // ^------------------------ Update Keyboard Keys View ------------------------
 const updateKeyboardKeysView = () => {
   const keys$ = document.querySelectorAll('.key[data-code]');
@@ -28,12 +42,31 @@ const updateKeyboardKeysView = () => {
 
 //
 //
-// ^------------------------  ------------------------
+
+// ^------------------------ Change Text Value ------------------------
+
+const changeTextValue = (inputText, startShift = 0, endShift = 0) => {
+  const textarea$ = document.querySelector('.textarea');
+  const start = textarea$.selectionStart;
+  const end = textarea$.selectionEnd;
+  if (start !== end) {
+    const substring = textarea$.value.substring(start, end);
+    textarea$.value = textarea$.value.replace(substring, '');
+  }
+  const text = textarea$.value;
+  textarea$.value = text.slice(0, start - startShift) + inputText + text.slice(start - endShift);
+
+  textarea$.selectionStart = start + inputText.length - startShift - endShift;
+  textarea$.selectionEnd = start + inputText.length - startShift - endShift;
+};
+
+//
+//
+
+// ^------------------------ Special Keys Function ------------------------
 // *----- tab -----
 const sendTab = () => {
-  // document.querySelector('click-audio').play();
-  const textarea = document.querySelector('.textarea');
-  textarea.value += '\t';
+  changeTextValue('\t');
 };
 
 // *----- caps lock -----
@@ -105,14 +138,12 @@ const changeAltState = (...elements) => {
 
 // *----- space -----
 const addSpace = () => {
-  const textarea = document.querySelector('.textarea');
-  textarea.value += ' ';
+  changeTextValue(' ');
 };
 
 // *----- enter -----
 const addEnter = () => {
-  const textarea = document.querySelector('.textarea');
-  textarea.value += '\n';
+  changeTextValue('\n');
 };
 
 // *----- backspace -----
@@ -120,45 +151,150 @@ const addBackspace = () => {
   const textarea$ = document.querySelector('.textarea');
   const start = textarea$.selectionStart;
   const end = textarea$.selectionEnd;
-  Msg(`start: ${start}`);
-  Msg(`end: ${end}`);
-  textarea$.focus();
   if (start !== end) {
-    const substring = textarea$.value.substring(start, end);
-    textarea$.value = textarea$.value.replace(substring, '');
-    textarea$.selectionEnd = start;
+    changeTextValue('');
   } else {
-    textarea$.value = textarea$.value.slice(0, -1);
+    changeTextValue('', 1);
   }
-  // textarea$.selectionStart = end + charFromKeyboard.length;
-  // textarea$.selectionEnd = end + charFromKeyboard.length;
 };
 
 // *----- delete -----
 const addDelete = () => {
-  const textarea = document.querySelector('.textarea');
-  textarea.value += '*';
+  const textarea$ = document.querySelector('.textarea');
+  const start = textarea$.selectionStart;
+  const end = textarea$.selectionEnd;
+  if (start !== end) {
+    changeTextValue('');
+  } else {
+    const text = textarea$.value;
+    textarea$.value = `${text.slice(0, start)}${text.slice(start + 1)}`;
+
+    textarea$.selectionStart = start;
+    textarea$.selectionEnd = start;
+  }
 };
 
 // *----- arrow up -----
 const addArrowUp = () => {
-  const textarea = document.querySelector('.textarea');
-  textarea.value += '*';
+  const textarea$ = document.querySelector('.textarea');
+  const start = textarea$.selectionStart;
+  const end = textarea$.selectionEnd;
+  const lines = textarea$.value.split('\n');
+  const count = lines.length; // count of lines
+  let lineStart = 0;
+  const linesPos = lines.map((line) => {
+    const startLine = lineStart;
+    const lineObj = {
+      start: startLine,
+      end: startLine + line.length,
+      length: line.length,
+    };
+    lineStart += line.length + 1;
+    return lineObj;
+  });
+
+  const textBeforeCursor = textarea$.value.substring(0, start);
+  const textAfterCursor = textarea$.value.substring(start);
+  const cursorLine = textBeforeCursor.split('\n').length - 1; // cursor line
+  // Msg(linesPos);
+  if (start !== end) {
+    Msg('');
+  } else if (linesPos[cursorLine - 1]) {
+    const startNextPostion = linesPos[cursorLine - 1].start;
+    const endNextPostion = linesPos[cursorLine - 1].end;
+    const endNext = linesPos[cursorLine - 1].length;
+    const currentCursorPosition = start - linesPos[cursorLine].start;
+    Msg(currentCursorPosition, endNextPostion);
+    let nextPostion = startNextPostion + currentCursorPosition;
+    if (currentCursorPosition > 0 && currentCursorPosition < endNext) {
+      Msg('custom');
+      nextPostion = startNextPostion + currentCursorPosition;
+    } else if (currentCursorPosition >= endNext) {
+      Msg('end');
+      nextPostion = endNextPostion;
+    } else if (currentCursorPosition <= 0) {
+      Msg('start');
+      nextPostion = startNextPostion;
+    }
+    const halfLineLength = linesPos[cursorLine].length / 2;
+    textarea$.selectionStart = nextPostion;
+    textarea$.selectionEnd = nextPostion;
+  }
 };
-// *----- arrow right -----
-const addArrowRight = () => {
-  const textarea = document.querySelector('.textarea');
-  textarea.value += '*';
-};
+
 // *----- arrow down -----
 const addArrowDown = () => {
-  const textarea = document.querySelector('.textarea');
-  textarea.value += '*';
+  const textarea$ = document.querySelector('.textarea');
+  const start = textarea$.selectionStart;
+  const end = textarea$.selectionEnd;
+  const lines = textarea$.value.split('\n');
+  const count = lines.length; // count of lines
+  let lineStart = 0;
+  const linesPos = lines.map((line) => {
+    const startLine = lineStart;
+    const lineObj = {
+      start: startLine,
+      end: startLine + line.length,
+      length: line.length,
+    };
+    lineStart += line.length + 1;
+    return lineObj;
+  });
+
+  const textBeforeCursor = textarea$.value.substring(0, start);
+  const textAfterCursor = textarea$.value.substring(start);
+  const cursorLine = textBeforeCursor.split('\n').length - 1; // cursor line
+  // Msg(linesPos);
+  // Msg(cursorLine);
+  if (start !== end) {
+    Msg('');
+  } else if (linesPos[cursorLine + 1]) {
+    const startNextPostion = linesPos[cursorLine + 1].start;
+    const endNextPostion = linesPos[cursorLine + 1].end;
+    const endNext = linesPos[cursorLine + 1].length;
+    const currentCursorPosition = start - linesPos[cursorLine].start;
+    Msg(currentCursorPosition, endNextPostion);
+    let nextPostion = startNextPostion + currentCursorPosition;
+    if (currentCursorPosition > 0 && currentCursorPosition < endNext) {
+      Msg('custom');
+      nextPostion = startNextPostion + currentCursorPosition;
+    } else if (currentCursorPosition >= endNext) {
+      Msg('end');
+      nextPostion = endNextPostion;
+    } else if (currentCursorPosition <= 0) {
+      Msg('start');
+      nextPostion = startNextPostion;
+    }
+    const halfLineLength = linesPos[cursorLine].length / 2;
+    textarea$.selectionStart = nextPostion;
+    textarea$.selectionEnd = nextPostion;
+  }
 };
+
+// *----- arrow right -----
+const addArrowRight = () => {
+  const textarea$ = document.querySelector('.textarea');
+  const start = textarea$.selectionStart;
+  const end = textarea$.selectionEnd;
+  if (start !== end) {
+    Msg('');
+  } else {
+    textarea$.selectionStart = end + 1;
+    textarea$.selectionEnd = end + 1;
+  }
+};
+
 // *----- arrow left -----
 const addArrowLeft = () => {
-  const textarea = document.querySelector('.textarea');
-  textarea.value += '*';
+  const textarea$ = document.querySelector('.textarea');
+  const start = textarea$.selectionStart;
+  const end = textarea$.selectionEnd;
+  if (start !== end) {
+    Msg('');
+  } else {
+    textarea$.selectionStart = start - 1;
+    textarea$.selectionEnd = start + -1;
+  }
 };
 
 // *----- language -----
@@ -183,91 +319,103 @@ const sendKeyToTextArea = (key, code) => {
     const { code: eCode } = e;
     const el = e.target;
 
-    // ^------------------------  ------------------------
-    const viewportOffset = el.getBoundingClientRect();
-    const { left } = viewportOffset;
-    const { top } = viewportOffset;
-    const elWidth = el.clientWidth;
-    const elHeight = el.clientHeight;
+    // ^------------------------ Keypress FX ------------------------
+    // const viewportOffset = el.getBoundingClientRect();
+    // const { left } = viewportOffset;
+    // const { top } = viewportOffset;
+    // const elWidth = el.clientWidth;
+    // const elHeight = el.clientHeight;
 
-    const keyboard = document.querySelector('.keyboard');
-    const keyboardOffset = keyboard.getBoundingClientRect();
+    // const keyboard = document.querySelector('.keyboard');
+    // const keyboardOffset = keyboard.getBoundingClientRect();
 
-    const { left: leftKeyboard } = keyboardOffset;
-    const { top: topKeyboard } = keyboardOffset;
-    Msg(top, ': ', left);
-    Msg(topKeyboard, ': ', leftKeyboard);
+    // const { left: leftKeyboard } = keyboardOffset;
+    // const { top: topKeyboard } = keyboardOffset;
 
-    const fragment = new DocumentFragment();
-    const keyPressFx = createHTMLElem(fragment, 'div', ['key-press-fx']);
-    keyboard.appendChild(fragment);
-    const fxWidth = keyPressFx.offsetWidth;
-    const fxHeight = keyPressFx.offsetHeight;
-    Msg(fxWidth, ': ', fxHeight);
-    keyPressFx.style.top = `${top - topKeyboard + (elHeight / 2) - (fxHeight / 2)}px`;
-    keyPressFx.style.left = `${left - leftKeyboard + (elWidth / 2) - (fxWidth / 2)}px`;
-    // test.style.top = `${top + (elWidth / 2)}px`;
-    // test.style.left = `${left + (elHeight / 2)}px`;
+    // const fragment = new DocumentFragment();
+    // const keyPressFx = createHTMLElem(fragment, 'div', ['key-press-fx']);
+    // keyboard.appendChild(fragment);
+    // const fxWidth = keyPressFx.offsetWidth;
+    // const fxHeight = keyPressFx.offsetHeight;
+    // keyPressFx.style.top = `${top - topKeyboard + (elHeight / 2) - (fxHeight / 2)}px`;
+    // keyPressFx.style.left = `${left - leftKeyboard + (elWidth / 2) - (fxWidth / 2)}px`;
+    // // test.style.top = `${top + (elWidth / 2)}px`;
+    // // test.style.left = `${left + (elHeight / 2)}px`;
 
-    keyPressFx.classList.add('key-press-fx-run');
-    keyPressFx.addEventListener('animationend', () => {
-      keyPressFx.remove();
-    });
+    // keyPressFx.classList.add('key-press-fx-run');
+    // keyPressFx.addEventListener('animationend', () => {
+    //   keyPressFx.remove();
+    // });
 
     // ^------------------------  ------------------------
 
-    Msg(eCode);
     let charFromKeyboard = '';
     if (eCode === 'Tab') {
+      playHardClick();
       sendTab();
     } else if (eCode === 'CapsLock') {
+      playDoubleClick();
       changeCapsLockState(el);
     } else if (eCode === 'ShiftLeft') {
+      playDoubleClick();
       const shiftRight = document.querySelector('.shift-right');
       changeShiftState(el, shiftRight);
     } else if (eCode === 'ControlLeft') {
+      playDoubleClick();
       const controlRight = document.querySelector('.control-right');
       changeControlState(el, controlRight);
     } else if (eCode === 'MetaLeft') {
+      playDoubleClick();
       changeMetaState(el);
     } else if (eCode === 'AltLeft') {
+      playDoubleClick();
       const altRight = document.querySelector('.alt-right');
       changeAltState(el, altRight);
     } else if (eCode === 'Space') {
+      playSoftClick();
       addSpace();
     } else if (eCode === 'AltRight') {
       const altLeft = document.querySelector('.alt-left');
       changeAltState(el, altLeft);
     } else if (eCode === 'ControlRight') {
+      playDoubleClick();
       const controlLeft = document.querySelector('.control-left');
       changeControlState(el, controlLeft);
     } else if (eCode === 'ShiftRight') {
+      playDoubleClick();
       const shiftLeft = document.querySelector('.shift-left');
       changeShiftState(el, shiftLeft);
     } else if (eCode === 'Enter') {
+      playHardClick();
       addEnter(el);
     } else if (eCode === 'Backspace') {
+      playHardClick();
       addBackspace();
     } else if (eCode === 'Delete') {
+      playHardClick();
       addDelete();
     } else if (eCode === 'ArrowUp') {
+      playHardClick();
       addArrowUp();
     } else if (eCode === 'ArrowRight') {
+      playHardClick();
       addArrowRight();
     } else if (eCode === 'ArrowDown') {
+      playHardClick();
       addArrowDown();
     } else if (eCode === 'ArrowLeft') {
+      playHardClick();
       addArrowLeft();
     } else if (eCode === 'Language') {
+      playHardClick();
       changeLanguageKey();
     } else {
+      playSoftClick();
       charFromKeyboard = (APP.control || APP.win || APP.alt) ? '' : getCharFromKeyboard(e);
-      textarea$.value += charFromKeyboard;
-      textarea$.focus();
-      const start = textarea$.selectionStart;
-      const end = textarea$.selectionEnd;
-      textarea$.selectionStart = end + charFromKeyboard.length;
-      textarea$.selectionEnd = end + charFromKeyboard.length;
+      changeTextValue(charFromKeyboard);
+      // textarea$.focus();
+      // textarea$.selectionStart = start + charFromKeyboard.length;
+      // textarea$.selectionEnd = start + charFromKeyboard.length;
     }
     // textarea$.setSelectionRange(textarea$.selectionEnd, textarea$.selectionEnd);
   };
@@ -380,7 +528,7 @@ const generateHtml = () => {
   const main$ = createHTMLElem(bodyContainer$, 'div', ['main']);
   const mainContainer$ = createHTMLElem(main$, 'div', ['container']);
 
-  const textarea$ = createHTMLElem(mainContainer$, 'textarea', ['textarea']);
+  const textarea$ = createHTMLElem(mainContainer$, 'textarea', ['textarea', 'p2', 'scroll']);
 
   const keyboard$ = createHTMLElem(mainContainer$, 'div', ['keyboard']);
 
@@ -411,9 +559,10 @@ const generateHtml = () => {
   body$.appendChild(fragment$);
 
   // *----- add audio -----
-  const clickAudio$ = createHTMLElem(body$, 'audio', ['audio-click']);
+  // const clickAudio$ = createHTMLElem(body$, 'audio', ['audio-click']);
 
-  clickAudio$.src = audioS;
+  // clickAudio$.src = 'assets/sounds/favicon.ico';
+  // clickAudio$.src = iconN;
   // body$.appendChild(clickAudio$);
 
   // *----- add listeners foe special keys -----
@@ -452,3 +601,13 @@ export {
   generateHtml,
   sendTypeKeyToVirtualKeyboard,
 };
+function dsg(textarea$, charFromKeyboard) {
+  const start = textarea$.selectionStart;
+  const end = textarea$.selectionEnd;
+  if (start !== end) {
+    const substring = textarea$.value.substring(start, end);
+    textarea$.value = textarea$.value.replace(substring, '');
+  }
+  const text = textarea$.value;
+  textarea$.value = text.slice(0, start) + charFromKeyboard + text.slice(start);
+}
