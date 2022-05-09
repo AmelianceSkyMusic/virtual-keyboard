@@ -116,13 +116,9 @@ const config = {
         use: [stylesHandler, 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif|ico|mp3)$/i,
         type: 'asset',
         // type: 'asset/resource',
-      },
-      {
-        test: /\.mp3$/i,
-        type: 'file-loader',
       },
 
       // Add your rules for custom modules here
@@ -137,6 +133,10 @@ const config = {
 module.exports = () => {
   if (isProduction) {
     config.mode = 'production';
+
+    config.plugins.push(new MiniCssExtractPlugin({
+      filename: filename('css'), // #asm имя файла выхода
+    }));
   } else {
     config.mode = 'development';
 
