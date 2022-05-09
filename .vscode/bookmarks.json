@@ -1,0 +1,54 @@
+{
+	"files": [
+		{
+			"path": "src/html-generator.js",
+			"bookmarks": [
+				{
+					"line": 16,
+					"column": 39,
+					"label": "!--FUNCTIONS"
+				},
+				{
+					"line": 173,
+					"column": 29,
+					"label": "    Send Keys To Text Area"
+				},
+				{
+					"line": 285,
+					"column": 29,
+					"label": "    Show Animatiion On Key Press"
+				},
+				{
+					"line": 299,
+					"column": 29,
+					"label": "    Char Keys Listener"
+				},
+				{
+					"line": 356,
+					"column": 29,
+					"label": "    Special Keys Listener"
+				},
+				{
+					"line": 368,
+					"column": 27,
+					"label": "!--EXPORTED FUNCTIONS"
+				},
+				{
+					"line": 371,
+					"column": 29,
+					"label": "    Html Generator"
+				},
+				{
+					"line": 429,
+					"column": 29,
+					"label": "    Send Type Key To Virtual Keyboard"
+				},
+				{
+					"line": 19,
+					"column": 1,
+					"label": ""
+				}
+			]
+		}
+	]
+}

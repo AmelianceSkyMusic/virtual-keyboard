@@ -48,8 +48,8 @@
 
 // ^------------------------ footer to buttom ------------------------
 .body {
+
     .body__container {
-        position: relative;
         height: min(100%, 100vh);
         width: 100vw;
         display: flex;
@@ -94,7 +94,19 @@
 // >----------------------------------------------------------------<
 // >                              MAIN                              <
 // >----------------------------------------------------------------<
+:root{
+    --key-color--common_normal: rgb(25, 25, 25);
+    --key-color--common_hover: rgb(90, 50, 30);
+    --key-color--special_normal: rgb(45, 45, 45);
+    --key-color--special_hover: rgb(65, 65, 65);
+    --key-color--special-active_normal: rgb(80, 80, 80);
+    --key-color--special-active_hover: rgb(100, 100, 100);
+    --key-color--additional_normal: rgb(30, 30, 30);
+    --key-color--additional_hover: rgb(55, 55, 55);
+    --key-color--arrow_normal:  rgb(25, 25, 25);
+    --key-color--arrow_hover: rgb(40, 40, 40);
 
+}
 .main {
     height: var(--size-h__block-container-main_desktop);
     background-color: var(--color-0-1);
@@ -121,7 +133,7 @@
     // background: transparent;
     border-radius: 8px;
     // border: 4px solid red;
-    // border: 1px solid rgba(136, 136, 136, 0.05);
+    // border: 1px solid var(--key-color--common_normal);
     width: 100%;
     height: 140px;
     resize: none;
@@ -133,7 +145,13 @@
     gap: 16px;
     flex-wrap: wrap;
     justify-content: start;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    border-radius: 8px;
     .key {
+        position: relative;
+        z-index: 2;
         .p1 {
             // font-weight: 700;
             font-size: 20px;
@@ -145,7 +163,7 @@
         align-items: center;
         border-radius: 8px;
         // border: 1px solid red;
-        background: rgba(136, 136, 136, 0.05);
+        background: var(--key-color--common_normal);
         width: 64px;
         height: 64px;
         transform: scale(100%, 100%);
@@ -155,8 +173,8 @@
 
             --keyTapAnimation-scale-release: scale(100%, 100%);
             --keyTapAnimation-scale-press: scale(80%, 80%);
-            --keyTapAnimation-color-release: rgba(136, 136, 136, 0.05);
-            --keyTapAnimation-color-press: rgba(160, 81, 45, 0.5);
+            --keyTapAnimation-color-release: var(--key-color--common_normal);
+            --keyTapAnimation-color-press: var(--key-color--common_hover);
             animation-name: keyTapReleaseAnimation;
             animation-duration: 0.08s;
             animation-timing-function: ease-out;
@@ -165,12 +183,12 @@
         @media (hover: hover) {
             &:hover {
                 transition: background 0.2s ease-in-out;
-                background: rgba(160, 81, 45, 0.5);
+                background: var(--key-color--common_hover);
             }
 
         }
         &.tap{
-            // background: rgba(160, 81, 45, 0.5);
+            // background: var(--key-color--common_hover);
             // transform: scale(95%, 95%);
 
 
@@ -229,23 +247,24 @@
     .alt-left,
     .alt-right,
     .control-right{
-        background: rgba(136, 136, 136, 0.2);
+        background: var(--key-color--special_normal);
         --keyTapAnimation-scale-press: scale(80%, 80%);
-        --keyTapAnimation-color-release: rgba(136, 136, 136, 0.2);
-        --keyTapAnimation-color-press: rgba(136, 136, 136, 0.3);
+        --keyTapAnimation-color-release: var(--key-color--special_normal);
+        --keyTapAnimation-color-press: var(--key-color--special_hover);
         @media (hover: hover) {
             &:hover {
                 transition: background 0.2s ease-in-out;
-                background: rgba(136, 136, 136, 0.4);
+                background: var(--key-color--special_hover);
             }
 
         }
         &.enable {
-            background: rgba(136, 136, 136, 0.5);
+            background: var(--key-color--special-active_normal);
+            --keyTapAnimation-color-press: var(--key-color--special-active_hover);
             @media (hover: hover) {
                 &:hover {
                     transition: background 0.2s ease-in-out;
-                    background: rgba(136, 136, 136, 0.7);
+                    background: var(--key-color--special-active_hover);
                 }
             }
 
@@ -256,26 +275,26 @@
     .arrow-left,
     .arrow-down,
     .arrow-right {
-        background: rgba(136, 136, 136, 0.05);
-        --keyTapAnimation-color-release: rgba(136, 136, 136, 0.05);
-        --keyTapAnimation-color-press: rgba(136, 136, 136, 0.2);
+        background: var(--key-color--common_normal);
+        --keyTapAnimation-color-release: var(--key-color--arrow_normal);
+        --keyTapAnimation-color-press: var(--key-color--arrow_hover);
         @media (hover: hover) {
             &:hover {
                 transition: background 0.2s ease-in-out;
-                background: rgba(136, 136, 136, 0.2);
+                background: var(--key-color--arrow_hover);
             }
 
         }
     }
 
     .language {
-        background: rgba(136, 136, 136, 0.1);
-        --keyTapAnimation-color-release: rgba(136, 136, 136, 0.1);
-        --keyTapAnimation-color-press: rgba(136, 136, 136, 0.3);
+        background: var(--key-color--additional_normal);
+        --keyTapAnimation-color-release: var(--key-color--additional_normal);
+        --keyTapAnimation-color-press: var(--key-color--additional_hover);
         @media (hover: hover) {
             &:hover {
                 transition: background 0.2s ease-in-out;
-                background: rgba(136, 136, 136, 0.3);
+                background: var(--key-color--additional_hover);
             }
 
         }
@@ -297,6 +316,51 @@
     .control-right { --keyTapAnimation-scale-press: scale(calc((100%/96) * ( 96 - (64/100*20))), 80%); }
 }
 
+.test {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgb(255, 255, 255);
+    width: 100px;
+    height: 100px;
+    border-radius: 10000px;
+
+    // transform: translate(-50%, -50%);
+    // opacity: 0;
+}
+
+.key-press-fx {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgb(255, 255, 255);
+    width: 100px;
+    height: 100px;
+    border-radius: 10000px;
+    z-index: -1000;
+
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.key-press-fx-run {
+    z-index: 0;
+    animation-name: upScale;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+
+@keyframes upScale {
+    0% { opacity: 0.1;
+        transform: scale(0%);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(500%);
+    }
+}
 
 
 

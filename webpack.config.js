@@ -120,6 +120,10 @@ const config = {
         type: 'asset',
         // type: 'asset/resource',
       },
+      {
+        test: /\.mp3$/i,
+        type: 'file-loader',
+      },
 
       // Add your rules for custom modules here
       // Learn more about loaders from https://webpack.js.org/loaders/

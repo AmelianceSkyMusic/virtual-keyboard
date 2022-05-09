@@ -26,9 +26,6 @@ const getCharFromKeyboard = (event) => {
 
 // ^------------------------ getCgarFromCode ------------------------
 const getCharFromCode = (code) => {
-//   const lowercase = APP.language === 'EN' ? 1 : 3;
-//   const uppercase = APP.language === 'EN' ? 2 : 4;
-
   let charCase = false;
   if (APP.capsLock && APP.shift) {
     charCase = APP.language === 'EN' ? 1 : 3; // lowercase
@@ -38,11 +35,7 @@ const getCharFromCode = (code) => {
     charCase = APP.language === 'EN' ? 1 : 3; // lowercase
   }
   if (KEYS_MAP[code]) return KEYS_MAP[code][charCase];
-  //   if (APP.shift && APP.capsLock) {
-  //     if (KEYS_MAP[code]) return KEYS_MAP[code][lowercase];
-  //   } else if (APP.shift || APP.capsLock) {
-  //     if (KEYS_MAP[code]) return KEYS_MAP[code][uppercase];
-  //   } else if (KEYS_MAP[code]) return KEYS_MAP[code][lowercase];
+
   return '';
 };
 
