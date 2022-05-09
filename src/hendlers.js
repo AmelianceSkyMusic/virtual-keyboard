@@ -1,4 +1,4 @@
-import APP from './app';
+import { APP } from './app';
 import { KEYS_MAP } from './keysMap';
 
 // >----------------------------------------------------------------<

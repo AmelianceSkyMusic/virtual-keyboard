@@ -1,12 +1,9 @@
-import {
-  playSoftClick,
-  playMediumClick,
-  playDoubleClick,
-  playDoubleDownClick,
-  playDoubleUpClick,
-} from './sound';
+import clickSoftAudio from './assets/sounds/typewriter-soft-click.mp3';
+import clickDoubleAudio from './assets/sounds/pen-click-and-release.mp3';
+import clickHardAudio from './assets/sounds/typewriter-hard-click.mp3';
+
 import toKebabCase from './scripts/others/toKebabCase';
-import { APP } from './app';
+import APP from './app';
 import { KEYS_MAP, KEYBOARD_KEYS } from './keysMap';
 import {
   changeLanguage,
@@ -22,24 +19,26 @@ import {
 // >----------------------------------------------------------------<
 // >                            FUNCTIONS                           <
 // >----------------------------------------------------------------<
-
+function playSoftClick() {
+  const audio = new Audio(clickSoftAudio);
+  audio.play();
+}
+function playHardClick() {
+  const audio = new Audio(clickHardAudio);
+  audio.play();
+}
+function playDoubleClick() {
+  const audio = new Audio(clickDoubleAudio);
+  audio.play();
+}
 // ^------------------------ Update Keyboard Keys View ------------------------
 const updateKeyboardKeysView = () => {
-  Msg(APP.language);
   const keys$ = document.querySelectorAll('.key[data-code]');
   keys$.forEach((elem) => {
     const el = elem;
     el.querySelector('.key__text').innerHTML = getCharFromCode(elem.dataset.code);
   });
 };
-
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    updateKeyboardKeysView();
-    const textarea$ = document.querySelector('.textarea');
-    textarea$.value = 'Клавиатура создана в операционной системе Windows\nДля переключения языка используйте: ctrl + alt';
-  }, 0);
-});
 
 //
 //
@@ -88,7 +87,7 @@ const changeShiftState = (isKeyboard, ...elements) => {
     elements.forEach((el) => {
       el.classList.add('enable');
     });
-  } else {
+  } else if (!isKeyboard) {
     elements.forEach((el) => {
       el.classList.remove('enable');
     });
@@ -352,18 +351,18 @@ const sendKeyToTextArea = (key, code, isKeyboard = false) => {
 
     let charFromKeyboard = '';
     if (eCode === 'Tab') {
-      playMediumClick();
+      playHardClick();
       sendTab();
     } else if (eCode === 'CapsLock') {
       playDoubleClick();
       changeCapsLockState(el);
     } else if (eCode === 'ShiftLeft') {
       if (isKeyboard) {
-        playDoubleDownClick();
+        playHardClick();
       } else {
         playDoubleClick();
       }
-      const shiftRight = document.querySelector('.shift-right');
+      const shiftRight = document.querySelector('.shift-left');
       changeShiftState(true, el, shiftRight);
     } else if (eCode === 'ControlLeft') {
       playDoubleClick();
@@ -387,37 +386,36 @@ const sendKeyToTextArea = (key, code, isKeyboard = false) => {
       const controlLeft = document.querySelector('.control-left');
       changeControlState(el, controlLeft);
     } else if (eCode === 'ShiftRight') {
-      if (isKeyboard) { // !TODO: fix this
-        console.log('shift right');
-        playMediumClick(); //!
+      if (isKeyboard) {
+        playHardClick();
       } else {
         playDoubleClick();
       }
-      const shiftLeft = document.querySelector('.shift-left');
+      const shiftLeft = document.querySelector('.shift-right');
       changeShiftState(el, shiftLeft);
     } else if (eCode === 'Enter') {
-      playMediumClick();
+      playHardClick();
       addEnter(el);
     } else if (eCode === 'Backspace') {
-      playMediumClick();
+      playHardClick();
       addBackspace();
     } else if (eCode === 'Delete') {
-      playMediumClick();
+      playHardClick();
       addDelete();
     } else if (eCode === 'ArrowUp') {
-      playMediumClick();
+      playHardClick();
       addArrowUp();
     } else if (eCode === 'ArrowRight') {
-      playMediumClick();
+      playHardClick();
       addArrowRight();
     } else if (eCode === 'ArrowDown') {
-      playMediumClick();
+      playHardClick();
       addArrowDown();
     } else if (eCode === 'ArrowLeft') {
-      playMediumClick();
+      playHardClick();
       addArrowLeft();
     } else if (eCode === 'Language') {
-      playMediumClick();
+      playHardClick();
       changeLanguageKey();
     } else {
       playSoftClick();
@@ -449,12 +447,15 @@ const sendKeyToTextArea = (key, code, isKeyboard = false) => {
 
 // ^------------------------ Show Animatiion On Key Press ------------------------
 
-const showAnimationOnKeyPress = (key) => {
+const showAnimationOnKeyPress = (key, isKeyboard = false) => {
   if (!key) return;
 
   key.classList.add('tap');
   key.addEventListener('animationend', () => {
+    // if (!isKeyboard) {
+    // Msg(isKeyboard);
     key.classList.remove('tap');
+    // }
   });
 };
 
@@ -550,7 +551,7 @@ const generateHtml = () => {
 
   // *----- add keys -----
   KEYBOARD_KEYS.forEach((code) => {
-    let char = getCharFromCode(code);
+    const char = getCharFromCode(code);
     const isChar = KEYS_MAP[code][0] === true;
 
     // *----- create button -----
@@ -566,11 +567,6 @@ const generateHtml = () => {
     key$.addEventListener('click', () => sendKeyToTextArea(key$, code));
 
     addCharKeysListener(isChar, key$);
-
-    if (code === 'Language') {
-      char = APP.language;
-      Msg(char);
-    }
 
     createHTMLElem(key$, 'p', ['p1', 'key__text'], char);
   });
@@ -600,12 +596,7 @@ const generateHtml = () => {
 // ^------------------------ Send Type Key To Virtual Keyboard ------------------------
 
 const sendTypeKeyToVirtualKeyboard = (event) => {
-  Msg(event);
-  if (!KEYS_MAP[event.code][0] && KEYS_MAP[event.code][5]
-    && event.code !== 'Backspace' && event.code !== 'Delete'
-    && event.code !== 'Enter' && event.code !== 'Tab'
-    && event.code !== 'ArrowUp' && event.code !== 'ArrowDown'
-    && event.code !== 'ArrowLeft' && event.code !== 'ArrowRight') return;
+  if (!KEYS_MAP[event.code][0] && KEYS_MAP[event.code][5]) return;
   KEYS_MAP[event.code][5] = true;
 
   event.preventDefault();
@@ -614,7 +605,7 @@ const sendTypeKeyToVirtualKeyboard = (event) => {
   const classFromCodeName = toKebabCase(code);
   const key = document.querySelector(`.${classFromCodeName}`);
 
-  showAnimationOnKeyPress(key);
+  showAnimationOnKeyPress(key, true);
   sendKeyToTextArea(key, code, true);
 };
 
@@ -623,38 +614,82 @@ const sendTypeKeyToVirtualKeyboard = (event) => {
 
 const removeSpecialKeyState = (event) => {
   KEYS_MAP[event.code][5] = false;
-  const eCode = event.code;
-
-  if (eCode === 'ShiftLeft') {
-    APP.shift = !APP.shift;
-    document.querySelector('.shift-left').classList.remove('enable');
-    document.querySelector('.shift-right').classList.remove('enable');
-    playDoubleUpClick();
-    updateKeyboardKeysView();
-  } else if (eCode === 'ControlLeft') {
+  if (event.code === 'Tab') {
+    playHardClick();
+    sendTab();
+  } else if (event.code === 'CapsLock') {
+    playDoubleClick();
+    changeCapsLockState(el);
+  } else if (event.code === 'ShiftLeft') {
+    const shiftLeft = document.querySelector('.shift-left');
+    const shiftRight = document.querySelector('.shift-right');
+    shiftLeft.classList.remove('enable');
+    shiftRight.classList.remove('enable');
+  } else if (event.code === 'ControlLeft') {
+    playDoubleClick();
     const controlRight = document.querySelector('.control-right');
     changeControlState(el, controlRight);
-  } else if (eCode === 'MetaLeft') {
+  } else if (event.code === 'MetaLeft') {
+    playDoubleClick();
     changeMetaState(el);
-  } else if (eCode === 'AltLeft') {
+  } else if (event.code === 'AltLeft') {
+    playDoubleClick();
     const altRight = document.querySelector('.alt-right');
     changeAltState(el, altRight);
-  } else if (eCode === 'Space') {
+  } else if (event.code === 'Space') {
     playSoftClick();
     addSpace();
-  } else if (eCode === 'AltRight') {
+  } else if (event.code === 'AltRight') {
     const altLeft = document.querySelector('.alt-left');
     changeAltState(el, altLeft);
-  } else if (eCode === 'ControlRight') {
+  } else if (event.code === 'ControlRight') {
+    playDoubleClick();
     const controlLeft = document.querySelector('.control-left');
     changeControlState(el, controlLeft);
-  } else if (eCode === 'ShiftRight') {
-    APP.shift = !APP.shift;
-    document.querySelector('.shift-left').classList.remove('enable');
-    document.querySelector('.shift-right').classList.remove('enable');
-    playDoubleUpClick();
-    updateKeyboardKeysView();
+  } else if (event.code === 'ShiftRight') {
+    if (isKeyboard) {
+      playHardClick();
+    } else {
+      playDoubleClick();
+    }
+    const shiftLeft = document.querySelector('.shift-right');
+    changeShiftState(el, shiftLeft);
+  } else if (event.code === 'Enter') {
+    playHardClick();
+    addEnter(el);
+  } else if (event.code === 'Backspace') {
+    playHardClick();
+    addBackspace();
+  } else if (event.code === 'Delete') {
+    playHardClick();
+    addDelete();
+  } else if (event.code === 'ArrowUp') {
+    playHardClick();
+    addArrowUp();
+  } else if (event.code === 'ArrowRight') {
+    playHardClick();
+    addArrowRight();
+  } else if (event.code === 'ArrowDown') {
+    playHardClick();
+    addArrowDown();
+  } else if (event.code === 'ArrowLeft') {
+    playHardClick();
+    addArrowLeft();
+  } else if (event.code === 'Language') {
+    playHardClick();
+    changeLanguageKey();
+  } else {
+    playSoftClick();
+    charFromKeyboard = (APP.control || APP.win || APP.alt) ? '' : getCharFromKeyboard(e);
+    changeTextValue(charFromKeyboard);
+    // textarea$.focus();
+    // textarea$.selectionStart = start + charFromKeyboard.length;
+    // textarea$.selectionEnd = start + charFromKeyboard.length;
   }
+  // const { code } = event;
+  // const classFromCodeName = toKebabCase(code);
+  // const key = document.querySelector(`.${classFromCodeName}`);
+  // key.classList.remove('tap');
 };
 
 //
