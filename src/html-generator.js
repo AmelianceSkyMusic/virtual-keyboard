@@ -362,27 +362,30 @@ const sendKeyToTextArea = (key, code, isKeyboard = false) => {
       const shiftRight = document.querySelector('.shift-right');
       const shiftLeft = document.querySelector('.shift-left');
       changeShiftState(true, shiftRight, shiftLeft);
-    } else if (eCode === 'ControlLeft') {
-      playDoubleClick();
+    } else if (eCode === 'ControlLeft' || eCode === 'ControlRight') {
+      if (isKeyboard) {
+        playDoubleDownClick();
+      } else {
+        playDoubleClick();
+      }
       const controlRight = document.querySelector('.control-right');
-      changeControlState(el, controlRight);
+      const controlLeft = document.querySelector('.control-left');
+      changeControlState(controlLeft, controlRight);
     } else if (eCode === 'MetaLeft') {
       playDoubleClick();
       changeMetaState(el);
     } else if (eCode === 'AltLeft') {
-      playDoubleClick();
+      if (isKeyboard) {
+        playDoubleDownClick();
+      } else {
+        playDoubleClick();
+      }
       const altRight = document.querySelector('.alt-right');
-      changeAltState(el, altRight);
+      const altLeft = document.querySelector('.alt-left');
+      changeAltState(altLeft, altRight);
     } else if (eCode === 'Space') {
       playSoftClick();
       addSpace();
-    } else if (eCode === 'AltRight') {
-      const altLeft = document.querySelector('.alt-left');
-      changeAltState(el, altLeft);
-    } else if (eCode === 'ControlRight') {
-      playDoubleClick();
-      const controlLeft = document.querySelector('.control-left');
-      changeControlState(el, controlLeft);
     } else if (eCode === 'Enter') {
       playMediumClick();
       addEnter(el);
@@ -414,6 +417,16 @@ const sendKeyToTextArea = (key, code, isKeyboard = false) => {
       // textarea$.focus();
       // textarea$.selectionStart = start + charFromKeyboard.length;
       // textarea$.selectionEnd = start + charFromKeyboard.length;
+    }
+    if (APP.control && APP.alt) {
+      const language$ = document.querySelector('.language .key__text');
+      if (language$.innerHTML === 'RU') {
+        APP.language = 'EN';
+      } else {
+        APP.language = 'RU';
+      }
+      language$.innerHTML = APP.language;
+      updateKeyboardKeysView();
     }
     // textarea$.setSelectionRange(textarea$.selectionEnd, textarea$.selectionEnd);
   };
@@ -553,7 +566,7 @@ const generateHtml = () => {
     key$.addEventListener('click', () => showAnimationOnKeyPress(key$));
     key$.addEventListener('click', () => sendKeyToTextArea(key$, code));
 
-    // addCharKeysListener(isChar, key$);
+    addCharKeysListener(isChar, key$);
 
     if (code === 'Language') {
       char = APP.language;
@@ -594,7 +607,8 @@ const sendTypeKeyToVirtualKeyboard = (event) => {
           && event.code !== 'Backspace' && event.code !== 'Delete'
           && event.code !== 'Enter' && event.code !== 'Tab'
           && event.code !== 'ArrowUp' && event.code !== 'ArrowDown'
-          && event.code !== 'ArrowLeft' && event.code !== 'ArrowRight') return;
+          && event.code !== 'ArrowLeft' && event.code !== 'ArrowRight'
+          && event.code !== 'Space') return;
   code = event.code;
   if (event.code !== 'ShiftLeft' && event.key === 'Shift') {
     code = 'ShiftRight';
@@ -650,24 +664,40 @@ const removeSpecialKeyState = (event) => {
     document.querySelector('.shift-right').classList.remove('enable');
     playDoubleUpClick();
     updateKeyboardKeysView();
-  // } else if (eCode === 'ControlLeft') {
-  //   const controlRight = document.querySelector('.control-right');
-  //   changeControlState(el, controlRight);
-  // } else if (eCode === 'MetaLeft') {
-  //   changeMetaState(el);
-  // } else if (eCode === 'AltLeft') {
-  //   const altRight = document.querySelector('.alt-right');
-  //   changeAltState(el, altRight);
-  // } else if (eCode === 'Space') {
-  //   playSoftClick();
-  //   addSpace();
-  // } else if (eCode === 'AltRight') {
-  //   const altLeft = document.querySelector('.alt-left');
-  //   changeAltState(el, altLeft);
+  } else if (eCode === 'ControlLeft' || eCode === 'ControlRight') {
+    APP.control = false;
+    document.querySelector('.control-left').classList.remove('enable');
+    document.querySelector('.control-right').classList.remove('enable');
+    playDoubleUpClick();
+    updateKeyboardKeysView();
+
+    // } else if (eCode === 'MetaLeft') {
+    //   changeMetaState(el);
+  } else if (eCode === 'AltLeft' || eCode === 'AltRight') {
+    APP.alt = false;
+    document.querySelector('.alt-right').classList.remove('enable');
+    document.querySelector('.alt-left').classList.remove('enable');
+    playDoubleUpClick();
+    updateKeyboardKeysView();
+    //   changeAltState(el, altRight);
+    // } else if (eCode === 'Space') {
+    //   playSoftClick();
+    //   addSpace();
+
   // } else if (eCode === 'ControlRight') {
   //   const controlLeft = document.querySelector('.control-left');
   //   changeControlState(el, controlLeft);
   }
+  // if (APP.control && APP.alt) {
+  //   const language$ = document.querySelector('.language .key__text');
+  //   if (language$.innerHTML === 'RU') {
+  //     APP.language = 'EN';
+  //   } else {
+  //     APP.language = 'RU';
+  //   }
+  //   language$.innerHTML = APP.language;
+  //   updateKeyboardKeysView();
+  // }
 };
 
 //
