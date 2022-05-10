@@ -84,19 +84,20 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
 
+      template: './index.html',
       filename: 'index.html', // #asm имя файла выхода
       // filename: '[hash]_another-name.html', // #asm возможность переименовать файл при билде
       chunks: ['theme-dark', 'theme-light', 'index'], // #asm подключение чанков для вывода
       // minify: false, // #asm отключение минификации
+      minify: true, // #asm отключение минификации
       inject: 'body', // #asm вставка js в конец body
-      template: './index.html',
     }),
     new CleanWebpackPlugin(), // #asm плагин для очистки
     new CopyWebpackPlugin({ // #asm плагин для переноса файлов
       patterns: [
         { from: 'assets/favicon.ico', to: 'assets' },
-        { from: 'assets/img', to: 'assets/img' },
-        { from: 'assets/svg', to: 'assets/svg' },
+        // { from: 'assets/img', to: 'assets/img' },
+        // { from: 'assets/svg', to: 'assets/svg' },
       ],
     }),
 
