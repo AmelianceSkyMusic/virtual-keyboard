@@ -42,6 +42,15 @@ window.addEventListener('load', () => {
     const textarea$ = document.querySelector('.textarea');
     textarea$.value = 'Клавиатура создана в операционной системе Windows\nДля переключения языка используйте: ctrl + alt';
     updateKeyboardKeysView();
+    // setTimeout(() => {
+    //   const fragment$ = new DocumentFragment(); // createvirtual fragment for compose no parent node
+    //   const zeroBlock$ = createHTMLElem(fragment$, 'div', ['.zero-block']);
+    //   const blackout$ = createHTMLElem(zeroBlock$, 'div', ['.blackout']);
+    //   blackout$.classList.add('.show');
+
+    //   const body$ = document.querySelector('body');
+    //   body$.prepend(fragment$);
+    // }, 0);
   }, 0);
 });
 

@@ -17,15 +17,16 @@
     left: 0;
     width: 100vw;
     height: 100vh;
+    z-index: 5000;
     background-color: $blackout__color;
     animation-name: hide-blackout;
     animation-duration: $blackout__animation-duration;
     animation-fill-mode: forwards;
     &.show {
         animation-name: show-blackout;
-        animation-duration: $blackout__animation-duration;
+        animation-duration: 0;
         animation-fill-mode: forwards;
-        opacity: 0.8;
+        opacity: 0.7;
         cursor: pointer;
     }
 }
