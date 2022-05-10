@@ -316,32 +316,34 @@ const sendKeyToTextArea = (key, code, isKeyboard = false) => {
     Msg('eCode: ', eCode);
 
     // ^------------------------ Keypress FX ------------------------
-    // const viewportOffset = el.getBoundingClientRect();
-    // const { left } = viewportOffset;
-    // const { top } = viewportOffset;
-    // const elWidth = el.clientWidth;
-    // const elHeight = el.clientHeight;
+    if (APP.win) {
+      const viewportOffset = el.getBoundingClientRect();
+      const { left } = viewportOffset;
+      const { top } = viewportOffset;
+      const elWidth = el.clientWidth;
+      const elHeight = el.clientHeight;
 
-    // const keyboard = document.querySelector('.keyboard');
-    // const keyboardOffset = keyboard.getBoundingClientRect();
+      const keyboard = document.querySelector('.keyboard');
+      const keyboardOffset = keyboard.getBoundingClientRect();
 
-    // const { left: leftKeyboard } = keyboardOffset;
-    // const { top: topKeyboard } = keyboardOffset;
+      const { left: leftKeyboard } = keyboardOffset;
+      const { top: topKeyboard } = keyboardOffset;
 
-    // const fragment = new DocumentFragment();
-    // const keyPressFx = createHTMLElem(fragment, 'div', ['key-press-fx']);
-    // keyboard.appendChild(fragment);
-    // const fxWidth = keyPressFx.offsetWidth;
-    // const fxHeight = keyPressFx.offsetHeight;
-    // keyPressFx.style.top = `${top - topKeyboard + (elHeight / 2) - (fxHeight / 2)}px`;
-    // keyPressFx.style.left = `${left - leftKeyboard + (elWidth / 2) - (fxWidth / 2)}px`;
-    // // test.style.top = `${top + (elWidth / 2)}px`;
-    // // test.style.left = `${left + (elHeight / 2)}px`;
+      const fragment = new DocumentFragment();
+      const keyPressFx = createHTMLElem(fragment, 'div', ['key-press-fx']);
+      keyboard.appendChild(fragment);
+      const fxWidth = keyPressFx.offsetWidth;
+      const fxHeight = keyPressFx.offsetHeight;
+      keyPressFx.style.top = `${top - topKeyboard + (elHeight / 2) - (fxHeight / 2)}px`;
+      keyPressFx.style.left = `${left - leftKeyboard + (elWidth / 2) - (fxWidth / 2)}px`;
+      // test.style.top = `${top + (elWidth / 2)}px`;
+      // test.style.left = `${left + (elHeight / 2)}px`;
 
-    // keyPressFx.classList.add('key-press-fx-run');
-    // keyPressFx.addEventListener('animationend', () => {
-    //   keyPressFx.remove();
-    // });
+      keyPressFx.classList.add('key-press-fx-run');
+      keyPressFx.addEventListener('animationend', () => {
+        keyPressFx.remove();
+      });
+    }
 
     // ^------------------------  ------------------------
 

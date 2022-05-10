@@ -99,32 +99,32 @@
 					"label": "    Keypress FX"
 				},
 				{
-					"line": 450,
+					"line": 452,
 					"column": 29,
 					"label": "    Show Animatiion On Key Press"
 				},
 				{
-					"line": 464,
+					"line": 466,
 					"column": 29,
 					"label": "    Char Keys Listener"
 				},
 				{
-					"line": 521,
+					"line": 523,
 					"column": 29,
 					"label": "    Special Keys Listener"
 				},
 				{
-					"line": 533,
+					"line": 535,
 					"column": 27,
 					"label": "!--EXPORTED FUNCTIONS"
 				},
 				{
-					"line": 536,
+					"line": 538,
 					"column": 29,
 					"label": "    Html Generator"
 				},
 				{
-					"line": 599,
+					"line": 601,
 					"column": 29,
 					"label": "    Send Type Key To Virtual Keyboard"
 				},
