@@ -119,8 +119,14 @@ const changeControlState = (...elements) => {
 const changeMetaState = (elem) => {
   APP.win = !APP.win;
   if (APP.win) {
+    // APP.isLight = true;
+    document.querySelector('link[href*="theme-light"]').media = 'all';
+    document.querySelector('link[href*="theme-dark"]').media = 'not all';
     elem.classList.add('enable');
   } else {
+    document.querySelector('link[href*="theme-light"]').media = 'not all';
+    document.querySelector('link[href*="theme-dark"]').media = 'all';
+    // APP.isLight = false;
     elem.classList.remove('enable');
   }
   updateKeyboardKeysView();
@@ -409,7 +415,7 @@ const sendKeyToTextArea = (key, code, isKeyboard = false) => {
       changeLanguageKey();
     } else {
       playSoftClick();
-      charFromKeyboard = (APP.control || APP.win || APP.alt) ? '' : getCharFromKeyboard(e);
+      charFromKeyboard = (APP.control || APP.alt) ? '' : getCharFromKeyboard(e);
       changeTextValue(charFromKeyboard);
     }
     if (APP.control && APP.alt) {
@@ -478,17 +484,6 @@ const addCharKeysListener = (isChar, key) => {
       updateKeyboardKeysView();
     };
     key.addEventListener('click', resetControl);
-
-    const resetWin = () => {
-      if (APP.win) {
-        APP.win = !APP.win;
-        const winLeft$ = document.querySelector('.meta-left');
-        winLeft$.classList.remove('enable');
-      }
-      updateKeyboardKeysView();
-    };
-
-    key.addEventListener('click', resetWin);
 
     const resetAlt = () => {
       if (APP.alt) {

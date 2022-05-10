@@ -25,3 +25,32 @@
     // --color-4-2: rgb(26, 26, 26);
     // --color-4-3: rgb(31, 31, 31);
 }
+
+:root{
+    --textarea-color--text: rgb(150, 150, 150);
+    --textarea-color--background: rgb(30, 30, 30);
+    --background-color--background: rgb(20, 20, 20);
+    --key-color--text: rgb(180, 180, 180);
+
+    --press-fx-color: rgb(255, 255, 255);
+
+    --blackout-color: rgb(0, 0, 0);
+
+
+    --textarea-color--caret: rgb(180, 180, 180);
+
+    --key-color--common_normal: rgb(30, 30, 30);
+    --key-color--common_hover: rgb(90, 50, 30);
+
+    --key-color--special_normal: rgb(45, 45,45);
+    --key-color--special_hover: rgb(65, 65, 65);
+    --key-color--special-active_normal: rgb(85, 85, 85);
+    --key-color--special-active_hover: rgb(105, 105, 105);
+
+    --key-color--additional_normal: rgb(40, 40, 40);
+    --key-color--additional_hover: rgb(70, 70, 70);
+
+    --key-color--arrow_normal:  rgb(35, 35, 35);
+    --key-color--arrow_hover: rgb(55, 55, 55);
+
+}

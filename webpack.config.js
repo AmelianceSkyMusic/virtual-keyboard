@@ -40,6 +40,8 @@ const config = {
 
   // ^------------------------ entry ------------------------
   entry: {
+    'theme-light': './theme-light.js', // #asm основной путь к файлу вхождения в сборку
+    'theme-dark': './theme-dark.js', // #asm основной путь к файлу вхождения в сборку
     index: './index.js', // #asm основной путь к файлу вхождения в сборку
     // another: './another.js', // #asm путь к дополнительному файлу
     // для того, что бы не было конфликтов в output нужно задать
@@ -81,11 +83,13 @@ const config = {
   // ^------------------------ plugins ------------------------
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html',
-      // filename: filename('html'), // #asm имя файла выхода
+
+      filename: 'index.html', // #asm имя файла выхода
       // filename: '[hash]_another-name.html', // #asm возможность переименовать файл при билде
+      chunks: ['theme-dark', 'theme-light', 'index'], // #asm подключение чанков для вывода
       // minify: false, // #asm отключение минификации
       inject: 'body', // #asm вставка js в конец body
+      template: './index.html',
     }),
     new CleanWebpackPlugin(), // #asm плагин для очистки
     new CopyWebpackPlugin({ // #asm плагин для переноса файлов
@@ -116,9 +120,13 @@ const config = {
         use: [stylesHandler, 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif|ico|mp3)$/i,
+        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif|ico)$/i,
         type: 'asset',
         // type: 'asset/resource',
+      },
+      {
+        test: /\.(mp3)$/i,
+        type: 'asset/resource',
       },
 
       // Add your rules for custom modules here

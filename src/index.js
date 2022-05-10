@@ -4,8 +4,8 @@ import {
   saveSettings,
 } from './app';
 
-import './style/scss/dark.scss';
 import './style/style.scss';
+
 import { generateHtml, sendTypeKeyToVirtualKeyboard, removeSpecialKeyState } from './html-generator';
 
 initHtml('Virtual Keyboard', './assets/favicon.ico');

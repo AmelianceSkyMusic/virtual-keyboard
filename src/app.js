@@ -6,6 +6,7 @@ const APP = {
   control: false,
   win: false,
   alt: false,
+  isLight: false,
 };
 
 const loadSettings = () => {

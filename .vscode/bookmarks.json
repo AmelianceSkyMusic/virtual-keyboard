@@ -39,92 +39,92 @@
 					"label": "        win"
 				},
 				{
-					"line": 128,
+					"line": 134,
 					"column": 10,
 					"label": "        alt"
 				},
 				{
-					"line": 143,
+					"line": 149,
 					"column": 10,
 					"label": "        space"
 				},
 				{
-					"line": 148,
+					"line": 154,
 					"column": 15,
 					"label": "        enter"
 				},
 				{
-					"line": 153,
+					"line": 159,
 					"column": 19,
 					"label": "        backspace"
 				},
 				{
-					"line": 165,
+					"line": 171,
 					"column": 16,
 					"label": "        delete"
 				},
 				{
-					"line": 181,
+					"line": 187,
 					"column": 10,
 					"label": "        arrow up"
 				},
 				{
-					"line": 224,
+					"line": 230,
 					"column": 10,
 					"label": "        arrow down"
 				},
 				{
-					"line": 269,
+					"line": 275,
 					"column": 10,
 					"label": "        arrow right"
 				},
 				{
-					"line": 282,
+					"line": 288,
 					"column": 10,
 					"label": "        arrow left"
 				},
 				{
-					"line": 295,
+					"line": 301,
 					"column": 18,
 					"label": "        language"
 				},
 				{
-					"line": 305,
+					"line": 311,
 					"column": 29,
 					"label": "    Send Keys To Text Area"
 				},
 				{
-					"line": 315,
+					"line": 321,
 					"column": 33,
 					"label": "    Keypress FX"
 				},
 				{
-					"line": 438,
+					"line": 444,
 					"column": 29,
 					"label": "    Show Animatiion On Key Press"
 				},
 				{
-					"line": 452,
+					"line": 458,
 					"column": 29,
 					"label": "    Char Keys Listener"
 				},
 				{
-					"line": 509,
+					"line": 504,
 					"column": 29,
 					"label": "    Special Keys Listener"
 				},
 				{
-					"line": 521,
+					"line": 516,
 					"column": 27,
 					"label": "!--EXPORTED FUNCTIONS"
 				},
 				{
-					"line": 524,
+					"line": 519,
 					"column": 29,
 					"label": "    Html Generator"
 				},
 				{
-					"line": 579,
+					"line": 574,
 					"column": 29,
 					"label": "    Send Type Key To Virtual Keyboard"
 				},

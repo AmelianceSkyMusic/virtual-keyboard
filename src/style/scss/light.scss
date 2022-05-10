@@ -1,0 +1,78 @@
+// $textarea-color--text:             rgb(150, 150, 150);
+// $textarea-color--background:       rgb(30, 30, 30);
+// $background-color--background:     rgb(20, 20, 20);
+// $key-color--text:                  rgb(180, 180, 180);
+
+// $press-fx-color:                   rgb(255, 255, 255);
+
+// $blackout-color:                   rgb(0, 0, 0);
+
+
+// $textarea-color--caret:            rgb(180, 180, 180);
+
+// $key-color--common_normal:         rgb(30, 30, 30);
+// $key-color--common_hover:          rgb(90, 50, 30);
+
+// $key-color--special_normal:        rgb(45, 45,45);
+// $key-color--special_hover:         rgb(65, 65, 65);
+// $key-color--special-active_normal: rgb(85, 85, 85);
+// $key-color--special-active_hover:  rgb(105, 105, 105);
+
+// $key-color--additional_normal:     rgb(40, 40, 40);
+// $key-color--additional_hover:      rgb(70, 70, 70);
+
+// $key-color--arrow_normal:          rgb(35, 35, 35);
+// $key-color--arrow_hover:           rgb(55, 55, 55);
+
+:root {
+    // --textarea-color--text: invert(                 $textarea-color--text             );
+    // --textarea-color--background: invert(           $textarea-color--background       );
+    // --background-color--background: invert(         $background-color--background     );
+    // --key-color--text: invert(                      $key-color--text                  );
+
+    // --press-fx-color: invert(                       $press-fx-color                   );
+
+    // --blackout-color: invert(                       $blackout-color                   );
+
+
+    // --textarea-color--caret: invert(                $textarea-color--caret            );
+
+    // --key-color--common_normal: invert(             $key-color--common_normal         );
+    // --key-color--common_hover: invert(              $key-color--common_hover          );
+
+    // --key-color--special_normal: invert(            $key-color--special_normal        );
+    // --key-color--special_hover: invert(             $key-color--special_hover         );
+    // --key-color--special-active_normal: invert(     $key-color--special-active_normal );
+    // --key-color--special-active_hover: invert(      $key-color--special-active_hover  );
+
+    // --key-color--additional_normal: invert(         $key-color--additional_normal     );
+    // --key-color--additional_hover: invert(          $key-color--additional_hover      );
+
+    // --key-color--arrow_normal:  invert(             $key-color--arrow_normal          );
+    // --key-color--arrow_hover: invert(               $key-color--arrow_hover           );
+    --textarea-color--text: rgb(100, 100, 100);
+    --textarea-color--background: rgb(220, 220, 220);
+    --background-color--background: rgb(240, 240, 240);
+    --key-color--text: rgb(60, 60, 60);
+
+    --press-fx-color: rgb(0, 132, 255);
+
+    --blackout-color: rgb(0, 0, 0);
+
+
+    --textarea-color--caret: rgb(60, 60, 60);
+
+    --key-color--common_normal: rgb(220, 220, 220);
+    --key-color--common_hover: rgb(149, 191, 229);
+
+    --key-color--special_normal: rgb(205, 205, 205);
+    --key-color--special_hover: rgb(175, 175, 175);
+    --key-color--special-active_normal: rgb(165, 165, 165);
+    --key-color--special-active_hover: rgb(145, 145, 145);
+
+    --key-color--additional_normal: rgb(200, 200, 200);
+    --key-color--additional_hover: rgb(180, 180, 180);
+
+    --key-color--arrow_normal:  rgb(195, 195, 195);
+    --key-color--arrow_hover: rgb(175, 175, 175);
+}
