@@ -4,127 +4,127 @@
 			"path": "src/html-generator.js",
 			"bookmarks": [
 				{
-					"line": 46,
+					"line": 47,
 					"column": 29,
 					"label": "    Change Text Value"
 				},
 				{
-					"line": 66,
+					"line": 67,
 					"column": 29,
 					"label": "    Special Keys Function"
 				},
 				{
-					"line": 67,
+					"line": 68,
 					"column": 13,
 					"label": "        tab"
 				},
 				{
-					"line": 72,
+					"line": 73,
 					"column": 10,
 					"label": "        caps lock"
 				},
 				{
-					"line": 83,
+					"line": 84,
 					"column": 10,
 					"label": "        shift"
 				},
 				{
-					"line": 98,
+					"line": 99,
 					"column": 10,
 					"label": "        ctrl"
 				},
 				{
-					"line": 113,
+					"line": 114,
 					"column": 10,
 					"label": "        win"
 				},
 				{
-					"line": 124,
+					"line": 125,
 					"column": 10,
 					"label": "        alt"
 				},
 				{
-					"line": 139,
+					"line": 140,
 					"column": 10,
 					"label": "        space"
 				},
 				{
-					"line": 144,
+					"line": 145,
 					"column": 15,
 					"label": "        enter"
 				},
 				{
-					"line": 149,
+					"line": 150,
 					"column": 19,
 					"label": "        backspace"
 				},
 				{
-					"line": 161,
+					"line": 162,
 					"column": 16,
 					"label": "        delete"
 				},
 				{
-					"line": 177,
+					"line": 178,
 					"column": 10,
 					"label": "        arrow up"
 				},
 				{
-					"line": 225,
+					"line": 222,
 					"column": 10,
 					"label": "        arrow down"
 				},
 				{
-					"line": 274,
+					"line": 267,
 					"column": 10,
 					"label": "        arrow right"
 				},
 				{
-					"line": 287,
+					"line": 280,
 					"column": 10,
 					"label": "        arrow left"
 				},
 				{
-					"line": 300,
+					"line": 293,
 					"column": 18,
 					"label": "        language"
 				},
 				{
-					"line": 310,
+					"line": 303,
 					"column": 29,
 					"label": "    Send Keys To Text Area"
 				},
 				{
-					"line": 322,
+					"line": 317,
 					"column": 33,
 					"label": "    Keypress FX"
 				},
 				{
-					"line": 449,
+					"line": 437,
 					"column": 29,
 					"label": "    Show Animatiion On Key Press"
 				},
 				{
-					"line": 463,
+					"line": 451,
 					"column": 29,
 					"label": "    Char Keys Listener"
 				},
 				{
-					"line": 520,
+					"line": 508,
 					"column": 29,
 					"label": "    Special Keys Listener"
 				},
 				{
-					"line": 532,
+					"line": 520,
 					"column": 27,
 					"label": "!--EXPORTED FUNCTIONS"
 				},
 				{
-					"line": 535,
+					"line": 523,
 					"column": 29,
 					"label": "    Html Generator"
 				},
 				{
-					"line": 599,
+					"line": 586,
 					"column": 29,
 					"label": "    Send Type Key To Virtual Keyboard"
 				},

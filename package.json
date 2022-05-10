@@ -11,7 +11,7 @@
     "start": "webpack serve",
     "dev": "webpack --mode=development --watch",
     "predeploy": "npm run build",
-    "deploy dist to gh-pages": "gh-pages -d dist"
+    "gh-pages": "gh-pages -d dist"
   },
   "keywords": [
     "virtual",
