@@ -39,13 +39,128 @@
 /************************************************************************/
 var __webpack_exports__ = {};
 
-;// CONCATENATED MODULE: ./initHtml.js
+;// CONCATENATED MODULE: ./scripts/modules/createHTMLElem.js
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 // >----------------------------------------------------------------<
+// >                            FUNCTION                            <
+// >----------------------------------------------------------------<
+function createHTMLElem(parent, elementType) {
+  var _elName$classList;
+
+  var classNames = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+  var text = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
+  // create element
+  var elName = document.createElement(elementType);
+
+  (_elName$classList = elName.classList).add.apply(_elName$classList, _toConsumableArray(classNames));
+
+  elName.innerHTML = text;
+  parent.append(elName);
+  return elName;
+} // >----------------------------------------------------------------<
+// >                             EXPORT                             <
+// >----------------------------------------------------------------<
+
+
+/* harmony default export */ const modules_createHTMLElem = (createHTMLElem);
+;// CONCATENATED MODULE: ./scripts/modules/popup.js
+ // >----------------------------------------------------------------<
+// >                              INIT                              <
+// >----------------------------------------------------------------<
+
+var popup = {}; // >----------------------------------------------------------------<
+// >                          FUNCTIONS                             <
+// >----------------------------------------------------------------<
+
+function create(title, text) {
+  var button = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+  var action = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function () {};
+
+  function closePopup(element, popupclosePopup, actionClosePopup) {
+    element.addEventListener('click', function () {
+      popupclosePopup.classList.remove('show'); // hide popup with animation
+      // hideBlackout(); // hide blackout with aniamtion
+
+      actionClosePopup();
+      setTimeout(function () {
+        popupclosePopup.remove(); // remove popup
+      }, 300);
+    });
+  }
+
+  var zeroBlock = document.querySelector('.zero-block');
+  var popUp = modules_createHTMLElem(zeroBlock, 'div', ['popup']);
+  modules_createHTMLElem(popUp, 'h3', ['h3', 'popup__title'], title);
+  modules_createHTMLElem(popUp, 'p1', ['p1', 'popup__text'], text);
+
+  if (button !== '') {
+    var popupButton = modules_createHTMLElem(popUp, 'button', ['button', 'popup__button'], button);
+    closePopup(popupButton, popUp, action);
+  } // showBlackout();
+
+
+  setTimeout(function () {
+    popUp.classList.add('show');
+  }, 0);
+} // >----------------------------------------------------------------<
+// >                             COLECT                             <
+// >----------------------------------------------------------------<
+
+
+popup.create = create; // >----------------------------------------------------------------<
+// >                             EXPORT                             <
+// >----------------------------------------------------------------<
+
+/* harmony default export */ const modules_popup = ((/* unused pure expression or super */ null && (popup)));
+;// CONCATENATED MODULE: ./scripts/modules/asm.js
+
+
+
+
+
+
+
+
+
+
+
+ // >----------------------------------------------------------------<
+// >                             EXPORT                             <
+// >----------------------------------------------------------------<
+
+
+;// CONCATENATED MODULE: ./initHtml.js
+ // >----------------------------------------------------------------<
 // >                            FUNCTIONS                           <
 // >----------------------------------------------------------------<
+
 var initHtml = function initHtml(pageTitle, favicon) {
   var head$ = document.querySelector('head');
   head$.innerHTML += "\n        <title>".concat(pageTitle, "</title>\n        <link rel=\"icon\" href=\"").concat(favicon, "\">\n    ");
+  var fragment$ = new DocumentFragment(); // createvirtual fragment for compose no parent node
+
+  var zeroBlock$ = modules_createHTMLElem(fragment$, 'div', ['zero-block']);
+  var blackout$ = modules_createHTMLElem(zeroBlock$, 'div', ['blackout', 'h1'], 'CLICK TO START');
+  blackout$.classList.add('show');
+  blackout$.addEventListener('click', function () {
+    blackout$.classList.remove('show');
+    blackout$.addEventListener('animationend', function () {
+      zeroBlock$.remove();
+    });
+  });
+  var body$ = document.querySelector('body');
+  body$.prepend(fragment$);
 }; // >----------------------------------------------------------------<
 // >                             EXPORT                             <
 // >----------------------------------------------------------------<
@@ -255,107 +370,6 @@ var changeLanguage = function changeLanguage() {
 // >                             EXPORT                             <
 // >----------------------------------------------------------------<
 
-
-
-;// CONCATENATED MODULE: ./scripts/modules/createHTMLElem.js
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-// >----------------------------------------------------------------<
-// >                            FUNCTION                            <
-// >----------------------------------------------------------------<
-function createHTMLElem(parent, elementType) {
-  var _elName$classList;
-
-  var classNames = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-  var text = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
-  // create element
-  var elName = document.createElement(elementType);
-
-  (_elName$classList = elName.classList).add.apply(_elName$classList, _toConsumableArray(classNames));
-
-  elName.innerHTML = text;
-  parent.append(elName);
-  return elName;
-} // >----------------------------------------------------------------<
-// >                             EXPORT                             <
-// >----------------------------------------------------------------<
-
-
-/* harmony default export */ const modules_createHTMLElem = (createHTMLElem);
-;// CONCATENATED MODULE: ./scripts/modules/popup.js
- // >----------------------------------------------------------------<
-// >                              INIT                              <
-// >----------------------------------------------------------------<
-
-var popup = {}; // >----------------------------------------------------------------<
-// >                          FUNCTIONS                             <
-// >----------------------------------------------------------------<
-
-function create(title, text) {
-  var button = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-  var action = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function () {};
-
-  function closePopup(element, popupclosePopup, actionClosePopup) {
-    element.addEventListener('click', function () {
-      popupclosePopup.classList.remove('show'); // hide popup with animation
-      // hideBlackout(); // hide blackout with aniamtion
-
-      actionClosePopup();
-      setTimeout(function () {
-        popupclosePopup.remove(); // remove popup
-      }, 300);
-    });
-  }
-
-  var zeroBlock = document.querySelector('.zero-block');
-  var popUp = modules_createHTMLElem(zeroBlock, 'div', ['popup']);
-  modules_createHTMLElem(popUp, 'h3', ['h3', 'popup__title'], title);
-  modules_createHTMLElem(popUp, 'p1', ['p1', 'popup__text'], text);
-
-  if (button !== '') {
-    var popupButton = modules_createHTMLElem(popUp, 'button', ['button', 'popup__button'], button);
-    closePopup(popupButton, popUp, action);
-  } // showBlackout();
-
-
-  setTimeout(function () {
-    popUp.classList.add('show');
-  }, 0);
-} // >----------------------------------------------------------------<
-// >                             COLECT                             <
-// >----------------------------------------------------------------<
-
-
-popup.create = create; // >----------------------------------------------------------------<
-// >                             EXPORT                             <
-// >----------------------------------------------------------------<
-
-/* harmony default export */ const modules_popup = ((/* unused pure expression or super */ null && (popup)));
-;// CONCATENATED MODULE: ./scripts/modules/asm.js
-
-
-
-
-
-
-
-
-
-
-
- // >----------------------------------------------------------------<
-// >                             EXPORT                             <
-// >----------------------------------------------------------------<
 
 
 ;// CONCATENATED MODULE: ./html-generator.js
@@ -730,7 +744,7 @@ var sendKeyToTextArea = function sendKeyToTextArea(key, code) {
     } else if (eCode === 'MetaLeft') {
       playDoubleClick();
       changeMetaState(el);
-    } else if (eCode === 'AltLeft') {
+    } else if (eCode === 'AltLeft' || eCode === 'AltRight') {
       if (isKeyboard) {
         playDoubleDownClick();
       } else {
@@ -931,6 +945,9 @@ var generateHtml = function generateHtml() {
 
 var sendTypeKeyToVirtualKeyboard = function sendTypeKeyToVirtualKeyboard(event) {
   var code = '';
+  if (!KEYBOARD_KEYS.find(function (item) {
+    return item === event.code;
+  })) return;
 
   if (!event.code) {
     if (KEYS_MAP.ShiftRight[5]) return;
@@ -953,6 +970,9 @@ var sendTypeKeyToVirtualKeyboard = function sendTypeKeyToVirtualKeyboard(event) 
 
 
 var removeSpecialKeyState = function removeSpecialKeyState(event) {
+  if (!KEYBOARD_KEYS.find(function (item) {
+    return item === event.code;
+  })) return;
   var eCode = '';
 
   if (!event.code) {
