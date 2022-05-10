@@ -371,7 +371,7 @@ const sendKeyToTextArea = (key, code, isKeyboard = false) => {
     } else if (eCode === 'MetaLeft') {
       playDoubleClick();
       changeMetaState(el);
-    } else if (eCode === 'AltLeft') {
+    } else if (eCode === 'AltLeft' || eCode === 'AltRight') {
       if (isKeyboard) {
         playDoubleDownClick();
       } else {
@@ -581,6 +581,7 @@ const generateHtml = () => {
 
 const sendTypeKeyToVirtualKeyboard = (event) => {
   let code = '';
+  if (!KEYBOARD_KEYS.find((item) => item === event.code)) return;
   if (!event.code) {
     if (KEYS_MAP.ShiftRight[5]) return;
   } else if (!KEYS_MAP[event.code][0] && KEYS_MAP[event.code][5]
@@ -608,6 +609,7 @@ const sendTypeKeyToVirtualKeyboard = (event) => {
 //
 
 const removeSpecialKeyState = (event) => {
+  if (!KEYBOARD_KEYS.find((item) => item === event.code)) return;
   let eCode = '';
   if (!event.code) {
     if (!KEYS_MAP.ShiftRight[5]) return;
