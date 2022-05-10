@@ -57,6 +57,7 @@ const config = {
     // filename: 'bundle.js', // #asm имя файла выхода
     filename: filename('js'), // #asm имя файла выхода
     // filename: '[hash]-bundle.js',
+
   },
 
   // ^------------------------ optimization ------------------------
@@ -89,7 +90,7 @@ const config = {
       // filename: '[hash]_another-name.html', // #asm возможность переименовать файл при билде
       chunks: ['theme-dark', 'theme-light', 'index'], // #asm подключение чанков для вывода
       // minify: false, // #asm отключение минификации
-      minify: true, // #asm отключение минификации
+      // minify: true, // #asm отключение минификации
       inject: 'body', // #asm вставка js в конец body
     }),
     new CleanWebpackPlugin(), // #asm плагин для очистки
@@ -139,6 +140,7 @@ const config = {
 // >----------------------------------------------------------------<
 // >                          MODULE EXPORT                         <
 // >----------------------------------------------------------------<
+
 module.exports = () => {
   if (isProduction) {
     config.mode = 'production';
