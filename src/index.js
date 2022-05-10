@@ -7,7 +7,6 @@ import {
 import './style/scss/dark.scss';
 import './style/style.scss';
 import { generateHtml, sendTypeKeyToVirtualKeyboard, removeSpecialKeyState } from './html-generator';
-import { msg } from './scripts/modules/msg';
 
 initHtml('Virtual Keyboard', './assets/favicon.ico');
 window.addEventListener('load', loadSettings);

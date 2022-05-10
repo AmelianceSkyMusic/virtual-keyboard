@@ -15,13 +15,16 @@ import {
 } from './hendlers';
 
 import {
-  msg as Msg,
   createHTMLElem,
 } from './scripts/modules/asm';
 
 // >----------------------------------------------------------------<
 // >                            FUNCTIONS                           <
 // >----------------------------------------------------------------<
+
+function doNothing() {
+
+}
 
 // ^------------------------ Update Keyboard Keys View ------------------------
 const updateKeyboardKeysView = () => {
@@ -182,7 +185,6 @@ const addArrowUp = () => {
   const start = textarea$.selectionStart;
   const end = textarea$.selectionEnd;
   const lines = textarea$.value.split('\n');
-  const count = lines.length; // count of lines
   let lineStart = 0;
   const linesPos = lines.map((line) => {
     const startLine = lineStart;
@@ -196,11 +198,11 @@ const addArrowUp = () => {
   });
 
   const textBeforeCursor = textarea$.value.substring(0, start);
-  const textAfterCursor = textarea$.value.substring(start);
+
   const cursorLine = textBeforeCursor.split('\n').length - 1; // cursor line
-  // Msg(linesPos);
+
   if (start !== end) {
-    Msg('');
+    doNothing();
   } else if (linesPos[cursorLine - 1]) {
     const startNextPostion = linesPos[cursorLine - 1].start;
     const endNextPostion = linesPos[cursorLine - 1].end;
@@ -214,7 +216,7 @@ const addArrowUp = () => {
     } else if (currentCursorPosition <= 0) {
       nextPostion = startNextPostion;
     }
-    const halfLineLength = linesPos[cursorLine].length / 2;
+
     textarea$.selectionStart = nextPostion;
     textarea$.selectionEnd = nextPostion;
   }
@@ -226,7 +228,7 @@ const addArrowDown = () => {
   const start = textarea$.selectionStart;
   const end = textarea$.selectionEnd;
   const lines = textarea$.value.split('\n');
-  const count = lines.length; // count of lines
+
   let lineStart = 0;
   const linesPos = lines.map((line) => {
     const startLine = lineStart;
@@ -240,11 +242,11 @@ const addArrowDown = () => {
   });
 
   const textBeforeCursor = textarea$.value.substring(0, start);
-  const textAfterCursor = textarea$.value.substring(start);
+
   const cursorLine = textBeforeCursor.split('\n').length - 1; // cursor line
 
   if (start !== end) {
-    Msg('');
+    doNothing();
   } else if (linesPos[cursorLine + 1]) {
     const startNextPostion = linesPos[cursorLine + 1].start;
     const endNextPostion = linesPos[cursorLine + 1].end;
@@ -259,7 +261,7 @@ const addArrowDown = () => {
     } else if (currentCursorPosition <= 0) {
       nextPostion = startNextPostion;
     }
-    const halfLineLength = linesPos[cursorLine].length / 2;
+
     textarea$.selectionStart = nextPostion;
     textarea$.selectionEnd = nextPostion;
   }
@@ -271,7 +273,7 @@ const addArrowRight = () => {
   const start = textarea$.selectionStart;
   const end = textarea$.selectionEnd;
   if (start !== end) {
-    Msg('');
+    doNothing();
   } else {
     textarea$.selectionStart = end + 1;
     textarea$.selectionEnd = end + 1;
@@ -284,7 +286,7 @@ const addArrowLeft = () => {
   const start = textarea$.selectionStart;
   const end = textarea$.selectionEnd;
   if (start !== end) {
-    Msg('');
+    doNothing();
   } else {
     textarea$.selectionStart = start - 1;
     textarea$.selectionEnd = start + -1;
@@ -306,14 +308,10 @@ const changeLanguageKey = () => {
 const sendKeyToTextArea = (key, code, isKeyboard = false) => {
   if (!key) return;
 
-  const textarea$ = document.querySelector('.textarea');
-  // Msg(key, ': ', code);
   // *-----  -----
   const addCharToTextarea = (e) => {
     const { code: eCode } = e;
     const el = e.target;
-
-    Msg('eCode: ', eCode);
 
     // ^------------------------ Keypress FX ------------------------
     if (APP.win) {
@@ -336,8 +334,6 @@ const sendKeyToTextArea = (key, code, isKeyboard = false) => {
       const fxHeight = keyPressFx.offsetHeight;
       keyPressFx.style.top = `${top - topKeyboard + (elHeight / 2) - (fxHeight / 2)}px`;
       keyPressFx.style.left = `${left - leftKeyboard + (elWidth / 2) - (fxWidth / 2)}px`;
-      // test.style.top = `${top + (elWidth / 2)}px`;
-      // test.style.left = `${left + (elHeight / 2)}px`;
 
       keyPressFx.classList.add('key-press-fx-run');
       keyPressFx.addEventListener('animationend', () => {
@@ -355,7 +351,6 @@ const sendKeyToTextArea = (key, code, isKeyboard = false) => {
       playDoubleClick();
       changeCapsLockState(el);
     } else if (eCode === 'ShiftLeft' || eCode === 'ShiftRight') {
-      Msg('shift', APP.shift);
       if (isKeyboard) {
         playDoubleDownClick();
       } else {
@@ -416,9 +411,6 @@ const sendKeyToTextArea = (key, code, isKeyboard = false) => {
       playSoftClick();
       charFromKeyboard = (APP.control || APP.win || APP.alt) ? '' : getCharFromKeyboard(e);
       changeTextValue(charFromKeyboard);
-      // textarea$.focus();
-      // textarea$.selectionStart = start + charFromKeyboard.length;
-      // textarea$.selectionEnd = start + charFromKeyboard.length;
     }
     if (APP.control && APP.alt) {
       const language$ = document.querySelector('.language .key__text');
@@ -430,21 +422,15 @@ const sendKeyToTextArea = (key, code, isKeyboard = false) => {
       language$.innerHTML = APP.language;
       updateKeyboardKeysView();
     }
-    // textarea$.setSelectionRange(textarea$.selectionEnd, textarea$.selectionEnd);
   };
 
-  // if (!KEYS_MAP[code][5]) {
   // *----- emulate keyboard -----
-  // key.addEventListener('keyup', () => { Msg('keyup'); });
+
   key.addEventListener('keydown', addCharToTextarea);
   key.dispatchEvent(new KeyboardEvent('keydown', {
     code,
   }));
   key.removeEventListener('keydown', addCharToTextarea);
-  // key.dispatchEvent(new KeyboardEvent('keyup', {
-  //   code,
-  // }));
-  // }
 };
 
 //
@@ -562,7 +548,6 @@ const generateHtml = () => {
 
     // *----- add code to key -----
     if (isChar) key$.dataset.code = code;
-    // key$.dataset.code = code;
 
     // *----- add listener to button -----
     key$.addEventListener('click', () => showAnimationOnKeyPress(key$));
@@ -580,13 +565,6 @@ const generateHtml = () => {
   // *----- add virtual node to body -----
   const body$ = document.querySelector('body');
   body$.appendChild(fragment$);
-
-  // *----- add audio -----
-  // const clickAudio$ = createHTMLElem(body$, 'audio', ['audio-click']);
-
-  // clickAudio$.src = 'assets/sounds/favicon.ico';
-  // clickAudio$.src = iconN;
-  // body$.appendChild(clickAudio$);
 
   // *----- add listeners foe special keys -----
   addSepicalKeysListener();
@@ -616,12 +594,11 @@ const sendTypeKeyToVirtualKeyboard = (event) => {
     code = 'ShiftRight';
   }
   KEYS_MAP[code][5] = true;
-  Msg(`code: ${code},  ${KEYS_MAP[code][5]} `);
+
   event.preventDefault();
 
   const classFromCodeName = toKebabCase(code);
   const key = document.querySelector(`.${classFromCodeName}`);
-  Msg(key);
 
   showAnimationOnKeyPress(key);
   sendKeyToTextArea(key, code, true);
@@ -638,27 +615,9 @@ const removeSpecialKeyState = (event) => {
   eCode = event.code;
   if (event.code !== 'ShiftLeft' && event.key === 'Shift') {
     eCode = 'ShiftRight';
-    Msg(eCode);
   }
-  // else if (!KEYS_MAP[event.code][0] && KEYS_MAP[event.code][5]
-  //   && event.code !== 'Backspace' && event.code !== 'Delete'
-  //   && event.code !== 'Enter' && event.code !== 'Tab'
-  //   && event.code !== 'ArrowUp' && event.code !== 'ArrowDown'
-  //   && event.code !== 'ArrowLeft' && event.code !== 'ArrowRight') return;
-  KEYS_MAP[eCode][5] = false;
 
-  // if (!event.code && !event.shiftKey) return;
-  // let eCode = event.code;
-  // if (event.code !== 'ShiftLeft' && event.shiftKey) {
-  //   eCode = 'ShiftRight';
-  //   KEYS_MAP.ShiftRight[5] = false;
-  //   Msg(KEYS_MAP.ShiftRight[5]);
-  // } else {
-  //   KEYS_MAP[event.code][5] = false;
-  //   Msg(KEYS_MAP[event.code][5]);
-  // }
-  // Msg(KEYS_MAP[eCode][5]);
-  Msg('go');
+  KEYS_MAP[eCode][5] = false;
 
   if (eCode === 'ShiftLeft' || eCode === 'ShiftRight') {
     APP.shift = false;
@@ -672,34 +631,13 @@ const removeSpecialKeyState = (event) => {
     document.querySelector('.control-right').classList.remove('enable');
     playDoubleUpClick();
     updateKeyboardKeysView();
-
-    // } else if (eCode === 'MetaLeft') {
-    //   changeMetaState(el);
   } else if (eCode === 'AltLeft' || eCode === 'AltRight') {
     APP.alt = false;
     document.querySelector('.alt-right').classList.remove('enable');
     document.querySelector('.alt-left').classList.remove('enable');
     playDoubleUpClick();
     updateKeyboardKeysView();
-    //   changeAltState(el, altRight);
-    // } else if (eCode === 'Space') {
-    //   playSoftClick();
-    //   addSpace();
-
-  // } else if (eCode === 'ControlRight') {
-  //   const controlLeft = document.querySelector('.control-left');
-  //   changeControlState(el, controlLeft);
   }
-  // if (APP.control && APP.alt) {
-  //   const language$ = document.querySelector('.language .key__text');
-  //   if (language$.innerHTML === 'RU') {
-  //     APP.language = 'EN';
-  //   } else {
-  //     APP.language = 'RU';
-  //   }
-  //   language$.innerHTML = APP.language;
-  //   updateKeyboardKeysView();
-  // }
 };
 
 //
@@ -715,13 +653,3 @@ export {
   sendTypeKeyToVirtualKeyboard,
   removeSpecialKeyState,
 };
-// function dsg(textarea$, charFromKeyboard) {
-//   const start = textarea$.selectionStart;
-//   const end = textarea$.selectionEnd;
-//   if (start !== end) {
-//     const substring = textarea$.value.substring(start, end);
-//     textarea$.value = textarea$.value.replace(substring, '');
-//   }
-//   const text = textarea$.value;
-//   textarea$.value = text.slice(0, start) + charFromKeyboard + text.slice(start);
-// }
