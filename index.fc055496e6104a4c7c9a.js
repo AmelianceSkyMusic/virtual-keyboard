@@ -213,29 +213,40 @@ const click_double_up_namespaceObject = __webpack_require__.p + "2108bfe4a7f7076
 
 
 
+
 function playSoftClick() {
-  var audio = new Audio(click_soft_namespaceObject);
-  audio.play();
+  if (!APP.win) {
+    var audio = new Audio(click_soft_namespaceObject);
+    audio.play();
+  }
 }
 
 function playMediumClick() {
-  var audio = new Audio(click_double_down_namespaceObject);
-  audio.play();
+  if (!APP.win) {
+    var audio = new Audio(click_double_down_namespaceObject);
+    audio.play();
+  }
 }
 
 function playDoubleClick() {
-  var audio = new Audio(click_double_namespaceObject);
-  audio.play();
+  if (!APP.win) {
+    var audio = new Audio(click_double_namespaceObject);
+    audio.play();
+  }
 }
 
 function playDoubleDownClick() {
-  var audio = new Audio(click_double_down_namespaceObject);
-  audio.play();
+  if (!APP.win) {
+    var audio = new Audio(click_double_down_namespaceObject);
+    audio.play();
+  }
 }
 
 function playDoubleUpClick() {
-  var audio = new Audio(click_double_up_namespaceObject);
-  audio.play();
+  if (!APP.win) {
+    var audio = new Audio(click_double_up_namespaceObject);
+    audio.play();
+  }
 }
 
 
@@ -360,8 +371,24 @@ var getCharFromCode = function getCharFromCode(code) {
     charCase = APP.language === 'EN' ? 1 : 3; // lowercase
   }
 
-  if (KEYS_MAP[code]) return KEYS_MAP[code][charCase];
-  return '';
+  if (APP.capsLock && !APP.shift) {
+    // *1
+    if (KEYS_MAP[code] && (code === 'Backquote' || code === 'Digit1' || code === 'Digit2' || code === 'Digit3' || code === 'Digit4' || code === 'Digit5' || code === 'Digit6' || code === 'Digit7' || code === 'Digit8' || code === 'Digit9' || code === 'Digit0' || code === 'Minus' || code === 'Equal')) {
+      return KEYS_MAP[code][APP.language === 'EN' ? 1 : 3];
+    }
+
+    return KEYS_MAP[code][charCase];
+  }
+
+  if (APP.capsLock && APP.shift) {
+    if (KEYS_MAP[code] && (code === 'Backquote' || code === 'Digit1' || code === 'Digit2' || code === 'Digit3' || code === 'Digit4' || code === 'Digit5' || code === 'Digit6' || code === 'Digit7' || code === 'Digit8' || code === 'Digit9' || code === 'Digit0' || code === 'Minus' || code === 'Equal')) {
+      return KEYS_MAP[code][APP.language === 'EN' ? 2 : 4];
+    }
+
+    return KEYS_MAP[code][charCase];
+  }
+
+  return KEYS_MAP[code][charCase];
 }; // ^------------------------ changeLanguage ------------------------
 
 
