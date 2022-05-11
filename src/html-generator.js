@@ -40,7 +40,7 @@ window.addEventListener('load', () => {
     const language$ = document.querySelector('.language .key__text');
     language$.innerHTML = APP.language;
     const textarea$ = document.querySelector('.textarea');
-    textarea$.value = 'Клавиатура создана в операционной системе Windows\nДля переключения языка используйте: ctrl + alt';
+    textarea$.placeholder = 'Клавиатура создана в операционной системе Windows\nДля переключения языка используйте: Ctrl + Alt\n\nЕсли шумит, попробуйте нажать Win😉';
     updateKeyboardKeysView();
   }, 0);
 });
