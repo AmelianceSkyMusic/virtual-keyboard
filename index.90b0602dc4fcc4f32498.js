@@ -174,7 +174,7 @@ var APP = {
   capsLock: false,
   carretPosition: 0,
   control: false,
-  win: false,
+  win: 0,
   alt: false,
   isLight: false
 };
@@ -215,35 +215,35 @@ const click_double_up_namespaceObject = __webpack_require__.p + "2108bfe4a7f7076
 
 
 function playSoftClick() {
-  if (!APP.win) {
+  if (APP.win < 2) {
     var audio = new Audio(click_soft_namespaceObject);
     audio.play();
   }
 }
 
 function playMediumClick() {
-  if (!APP.win) {
+  if (APP.win < 2) {
     var audio = new Audio(click_double_down_namespaceObject);
     audio.play();
   }
 }
 
 function playDoubleClick() {
-  if (!APP.win) {
+  if (APP.win < 2) {
     var audio = new Audio(click_double_namespaceObject);
     audio.play();
   }
 }
 
 function playDoubleDownClick() {
-  if (!APP.win) {
+  if (APP.win < 2) {
     var audio = new Audio(click_double_down_namespaceObject);
     audio.play();
   }
 }
 
 function playDoubleUpClick() {
-  if (!APP.win) {
+  if (APP.win < 2) {
     var audio = new Audio(click_double_up_namespaceObject);
     audio.play();
   }
@@ -524,17 +524,31 @@ var changeControlState = function changeControlState() {
 
 
 var changeMetaState = function changeMetaState(elem) {
-  APP.win = !APP.win;
+  APP.win = APP.win < 3 ? APP.win += 1 : 0;
 
-  if (APP.win) {
-    // APP.isLight = true;
-    document.querySelector('link[href*="theme-light"]').media = 'all';
-    document.querySelector('link[href*="theme-dark"]').media = 'not all';
-    elem.classList.add('enable');
-  } else {
+  if (APP.win === 0) {
+    document.querySelector('link[href*="theme-dark"]').media = 'all';
     document.querySelector('link[href*="theme-light"]').media = 'not all';
-    document.querySelector('link[href*="theme-dark"]').media = 'all'; // APP.isLight = false;
-
+    document.querySelector('link[href*="theme-gradient"]').media = 'not all';
+    document.querySelector('link[href*="theme-bordered"]').media = 'not all';
+    elem.classList.remove('enable');
+  } else if (APP.win === 1) {
+    document.querySelector('link[href*="theme-dark"]').media = 'not all';
+    document.querySelector('link[href*="theme-light"]').media = 'all';
+    document.querySelector('link[href*="theme-gradient"]').media = 'not all';
+    document.querySelector('link[href*="theme-bordered"]').media = 'not all';
+    elem.classList.remove('enable');
+  } else if (APP.win === 2) {
+    document.querySelector('link[href*="theme-dark"]').media = 'not all';
+    document.querySelector('link[href*="theme-light"]').media = 'not all';
+    document.querySelector('link[href*="theme-gradient"]').media = 'all';
+    document.querySelector('link[href*="theme-bordered"]').media = 'not all';
+    elem.classList.remove('enable');
+  } else if (APP.win === 3) {
+    document.querySelector('link[href*="theme-dark"]').media = 'not all';
+    document.querySelector('link[href*="theme-light"]').media = 'not all';
+    document.querySelector('link[href*="theme-gradient"]').media = 'not all';
+    document.querySelector('link[href*="theme-bordered"]').media = 'all';
     elem.classList.remove('enable');
   }
 
@@ -731,7 +745,7 @@ var sendKeyToTextArea = function sendKeyToTextArea(key, code) {
     var eCode = e.code;
     var el = e.target; // ^------------------------ Keypress FX ------------------------
 
-    if (APP.win) {
+    if (APP.win === 2) {
       var viewportOffset = el.getBoundingClientRect();
       var left = viewportOffset.left;
       var top = viewportOffset.top;
