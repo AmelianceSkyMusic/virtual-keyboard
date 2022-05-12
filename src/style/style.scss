@@ -142,13 +142,19 @@
 
     background: var(--textarea-color--background);
     // background: transparent;
-    border-radius: 8px;
+    border-radius: var(--textarea-radius--border);
+    border: 1px solid var(--textarea-color--border);
     // border: 4px solid red;
     // border: 1px solid var(--key-color--common_normal);
     width: 100%;
     height: 140px;
     resize: none;
-    padding: 16px;
+
+    padding: var(--textarea-padding);
+    &::placeholder {
+        color: var(--textarea-color--text);
+        opacity: 0.5;
+    }
 }
 
 .keyboard {
@@ -163,6 +169,7 @@
     .key {
         position: relative;
         z-index: 2;
+        border: 1px solid var(--key-color--border);
         .p1 {
             // font-weight: 700;
             font-size: 20px;
@@ -173,7 +180,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 8px;
+        border-radius: var(--key-radius--border);
         // border: 1px solid red;
         background: var(--key-color--common_normal);
         width: 64px;
@@ -357,7 +364,7 @@
     }
     100% {
         opacity: 0;
-        transform: scale(600%);
+        transform: scale(400%);
     }
 }
 

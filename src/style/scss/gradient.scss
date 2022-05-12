@@ -50,35 +50,35 @@
 
     // --key-color--arrow_normal:  invert(             $key-color--arrow_normal          );
     // --key-color--arrow_hover: invert(               $key-color--arrow_hover           );
-    --textarea-color--text: rgb(100, 100, 100);
-    --textarea-color--background: rgb(220, 220, 220);
-    --background-color--background: rgb(240, 240, 240);
-    --key-color--text: rgb(60, 60, 60);
+    --textarea-color--text: rgb(255, 255, 255);
+    --textarea-color--background: rgba(255, 255, 255, 0.2);
+    --background-color--background: linear-gradient(82.62deg, #FF005C 0%, #FF3D00 90.48%);
+    --key-color--text: rgb(255, 255, 255);
 
-    --press-fx-color: rgb(0, 132, 255);
+    --press-fx-color: rgb(255, 255, 255);
 
     --blackout-color: rgb(0, 0, 0);
 
 
-    --textarea-color--caret: rgb(60, 60, 60);
+    --textarea-color--caret: rgb(255, 255, 255);
 
-    --key-color--common_normal: rgb(220, 220, 220);
-    --key-color--common_hover: rgb(149, 191, 229);
+    --key-color--common_normal: rgba(255, 255, 255, 0);
+    --key-color--common_hover: rgba(255, 255, 255, 0.2);
 
-    --key-color--special_normal: rgb(205, 205, 205);
-    --key-color--special_hover: rgb(175, 175, 175);
-    --key-color--special-active_normal: rgb(165, 165, 165);
-    --key-color--special-active_hover: rgb(145, 145, 145);
+    --key-color--special_normal: rgba(255, 255, 255, 0.0);
+    --key-color--special_hover: rgba(255, 255, 255, 0.2);
+    --key-color--special-active_normal: rgba(255, 255, 255, 0.3);
+    --key-color--special-active_hover: rgba(255, 255, 255, 0.4);
 
-    --key-color--additional_normal: rgb(200, 200, 200);
-    --key-color--additional_hover: rgb(180, 180, 180);
+    --key-color--additional_normal: rgba(255, 255, 255, 0);
+    --key-color--additional_hover: rgba(255, 255, 255, 0.2);
 
-    --key-color--arrow_normal:  rgb(195, 195, 195);
-    --key-color--arrow_hover: rgb(175, 175, 175);
+    --key-color--arrow_normal:  rgba(255, 255, 255, 0);
+    --key-color--arrow_hover: rgba(255, 255, 255, 0.2);
 
     --scroll-color--background: rgba(255, 255, 255, 0);
     --scroll-color--track: rgba(255, 255, 255, 0);
-    --scroll-color--thumb: rgb(205, 205, 205);
+    --scroll-color--thumb: rgba(255, 255, 255, 0.3);
 
     --key-color--border: transparent;
     --textarea-color--border: transparent;

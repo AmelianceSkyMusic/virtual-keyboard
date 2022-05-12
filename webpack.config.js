@@ -42,6 +42,8 @@ const config = {
   entry: {
     'theme-light': './theme-light.js', // #asm основной путь к файлу вхождения в сборку
     'theme-dark': './theme-dark.js', // #asm основной путь к файлу вхождения в сборку
+    'theme-gradient': './theme-gradient.js', // #asm основной путь к файлу вхождения в сборку
+    'theme-bordered': './theme-bordered.js', // #asm основной путь к файлу вхождения в сборку
     index: './index.js', // #asm основной путь к файлу вхождения в сборку
     // another: './another.js', // #asm путь к дополнительному файлу
     // для того, что бы не было конфликтов в output нужно задать
@@ -88,7 +90,7 @@ const config = {
       template: './index.html',
       filename: 'index.html', // #asm имя файла выхода
       // filename: '[hash]_another-name.html', // #asm возможность переименовать файл при билде
-      chunks: ['theme-dark', 'theme-light', 'index'], // #asm подключение чанков для вывода
+      chunks: ['theme-dark', 'theme-light', 'theme-gradient', 'theme-bordered', 'index'], // #asm подключение чанков для вывода
       // minify: false, // #asm отключение минификации
       // minify: true, // #asm отключение минификации
       inject: 'body', // #asm вставка js в конец body

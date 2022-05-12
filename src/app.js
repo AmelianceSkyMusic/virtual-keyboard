@@ -4,7 +4,7 @@ const APP = {
   capsLock: false,
   carretPosition: 0,
   control: false,
-  win: false,
+  win: 0,
   alt: false,
   isLight: false,
 };

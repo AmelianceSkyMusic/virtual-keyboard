@@ -117,16 +117,32 @@ const changeControlState = (...elements) => {
 
 // *----- win -----
 const changeMetaState = (elem) => {
-  APP.win = !APP.win;
-  if (APP.win) {
-    // APP.isLight = true;
-    document.querySelector('link[href*="theme-light"]').media = 'all';
-    document.querySelector('link[href*="theme-dark"]').media = 'not all';
-    elem.classList.add('enable');
-  } else {
-    document.querySelector('link[href*="theme-light"]').media = 'not all';
+  APP.win = APP.win < 3 ? APP.win += 1 : 0;
+  if (APP.win === 0) {
     document.querySelector('link[href*="theme-dark"]').media = 'all';
-    // APP.isLight = false;
+    document.querySelector('link[href*="theme-light"]').media = 'not all';
+    document.querySelector('link[href*="theme-gradient"]').media = 'not all';
+    document.querySelector('link[href*="theme-bordered"]').media = 'not all';
+    elem.classList.remove('enable');
+  } else if (APP.win === 1) {
+    document.querySelector('link[href*="theme-dark"]').media = 'not all';
+    document.querySelector('link[href*="theme-light"]').media = 'all';
+    document.querySelector('link[href*="theme-gradient"]').media = 'not all';
+    document.querySelector('link[href*="theme-bordered"]').media = 'not all';
+    elem.classList.remove('enable');
+  } else if (APP.win === 2) {
+    document.querySelector('link[href*="theme-dark"]').media = 'not all';
+    document.querySelector('link[href*="theme-light"]').media = 'not all';
+    document.querySelector('link[href*="theme-gradient"]').media = 'all';
+    document.querySelector('link[href*="theme-bordered"]').media = 'not all';
+
+    elem.classList.remove('enable');
+  } else if (APP.win === 3) {
+    document.querySelector('link[href*="theme-dark"]').media = 'not all';
+    document.querySelector('link[href*="theme-light"]').media = 'not all';
+    document.querySelector('link[href*="theme-gradient"]').media = 'not all';
+    document.querySelector('link[href*="theme-bordered"]').media = 'all';
+
     elem.classList.remove('enable');
   }
   updateKeyboardKeysView();
@@ -320,7 +336,7 @@ const sendKeyToTextArea = (key, code, isKeyboard = false) => {
     const el = e.target;
 
     // ^------------------------ Keypress FX ------------------------
-    if (APP.win) {
+    if (APP.win === 2) {
       const viewportOffset = el.getBoundingClientRect();
       const { left } = viewportOffset;
       const { top } = viewportOffset;
