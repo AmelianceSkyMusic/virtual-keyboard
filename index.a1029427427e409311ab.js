@@ -373,7 +373,11 @@ var getCharFromCode = function getCharFromCode(code) {
 
   if (APP.capsLock && !APP.shift) {
     // *1
-    if (KEYS_MAP[code] && (code === 'Backquote' || code === 'Digit1' || code === 'Digit2' || code === 'Digit3' || code === 'Digit4' || code === 'Digit5' || code === 'Digit6' || code === 'Digit7' || code === 'Digit8' || code === 'Digit9' || code === 'Digit0' || code === 'Minus' || code === 'Equal')) {
+    if (KEYS_MAP[code] && (code === 'Backquote' || code === 'Digit1' || code === 'Digit2' || code === 'Digit3' || code === 'Digit4' || code === 'Digit5' || code === 'Digit6' || code === 'Digit7' || code === 'Digit8' || code === 'Digit9' || code === 'Digit0' || code === 'Minus' || code === 'Equal' || code === 'BracketLeft' || code === 'BracketRight' || code === 'Backslash' || code === 'Semicolon' || code === 'Quote' || code === 'Comma' || code === 'Period' || code === 'Slash')) {
+      if ((code === 'Backquote' || code === 'BracketLeft' || code === 'BracketRight' || code === 'Semicolon' || code === 'Quote' || code === 'Comma' || code === 'Period') && APP.language === 'RU') {
+        return KEYS_MAP[code][charCase];
+      }
+
       return KEYS_MAP[code][APP.language === 'EN' ? 1 : 3];
     }
 
@@ -381,7 +385,11 @@ var getCharFromCode = function getCharFromCode(code) {
   }
 
   if (APP.capsLock && APP.shift) {
-    if (KEYS_MAP[code] && (code === 'Backquote' || code === 'Digit1' || code === 'Digit2' || code === 'Digit3' || code === 'Digit4' || code === 'Digit5' || code === 'Digit6' || code === 'Digit7' || code === 'Digit8' || code === 'Digit9' || code === 'Digit0' || code === 'Minus' || code === 'Equal')) {
+    if (KEYS_MAP[code] && (code === 'Backquote' || code === 'Digit1' || code === 'Digit2' || code === 'Digit3' || code === 'Digit4' || code === 'Digit5' || code === 'Digit6' || code === 'Digit7' || code === 'Digit8' || code === 'Digit9' || code === 'Digit0' || code === 'Minus' || code === 'Equal' || code === 'BracketLeft' || code === 'BracketRight' || code === 'Backslash' || code === 'Semicolon' || code === 'Quote' || code === 'Comma' || code === 'Period' || code === 'Slash')) {
+      if ((code === 'Backquote' || code === 'BracketLeft' || code === 'BracketRight' || code === 'Semicolon' || code === 'Quote' || code === 'Comma' || code === 'Period') && APP.language === 'RU') {
+        return KEYS_MAP[code][charCase];
+      }
+
       return KEYS_MAP[code][APP.language === 'EN' ? 2 : 4];
     }
 
