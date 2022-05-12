@@ -1,0 +1,390 @@
+// >----------------------------------------------------------------<
+// >                            IMPORT                              <
+// >----------------------------------------------------------------<
+
+@use "./scss/main.scss" as *;
+
+// body {
+//     color: brown;
+//     background-image: url('../assets/img/photo.jpg');
+// }
+// .img {
+//     width: 500px;
+//     height: 500px;
+// }
+
+
+// >----------------------------------------------------------------<
+// >                            MIXINS                              <
+// >----------------------------------------------------------------<
+
+@mixin bgImgSVG($img) { // image.svg
+    background-image: url("./../../assets/svg/"+$img);
+}
+
+
+
+
+// >----------------------------------------------------------------<
+// >                              ROOT                              <
+// >----------------------------------------------------------------<
+
+:root {
+
+    // ^------------------------ size ------------------------
+    --size-w__block-container_desktop: 1224px; // block container --> 80px * 12 columns / gutter 24 px
+
+    --size-h__block-container-header_desktop: 64px;
+    --size-h__block-container-main_desktop: auto;
+    --size-h__block-container-footer_desktop: 64px;
+}
+
+// :root{
+//     --textarea-color--text: rgb(150, 150, 150);
+//     --textarea-color--background: rgb(30, 30, 30);
+//     --background-color--background: rgb(20, 20, 20);
+//     --key-color--text: rgb(180, 180, 180);
+
+
+//     --textarea-color--caret: rgb(180, 180, 180);
+
+//     --key-color--common_normal: rgb(30, 30, 30);
+//     --key-color--common_hover: rgb(90, 50, 30);
+
+//     --key-color--special_normal: rgb(45, 45,45);
+//     --key-color--special_hover: rgb(65, 65, 65);
+//     --key-color--special-active_normal: rgb(75, 75, 75);
+//     --key-color--special-active_hover: rgb(95, 95, 95);
+
+//     --key-color--additional_normal: rgb(40, 40, 40);
+//     --key-color--additional_hover: rgb(70, 70, 70);
+
+//     --key-color--arrow_normal:  rgb(35, 35, 35);
+//     --key-color--arrow_hover: rgb(55, 55, 55);
+
+// }
+
+
+
+// >----------------------------------------------------------------<
+// >                         START SETTINGS                         <
+// >----------------------------------------------------------------<
+
+// ^------------------------ footer to buttom ------------------------
+.body {
+
+    .body__container {
+        height: min(100%, 100vh);
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+    }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 1920px;
+    margin: 0 auto;
+    background: var(--background-color--background);
+}
+
+
+// ^------------------------ block container ------------------------
+
+.container {
+    max-height: 100%;
+    margin: 0 auto;
+}
+
+
+
+
+// >----------------------------------------------------------------<
+// >                             HEADER                             <
+// >----------------------------------------------------------------<
+
+// .header {
+//     height: var(--size-h__block-container-header_desktop);
+//     background-color: var(--color-0-2);
+//     .container {
+//         max-width: var(--size-w__block-container_desktop);
+//         height: 100%;
+//     }
+// }
+
+
+
+
+// >----------------------------------------------------------------<
+// >                              MAIN                              <
+// >----------------------------------------------------------------<
+.main {
+    height: var(--size-h__block-container-main_desktop);
+    background: var(--background-color--background);
+    .container {
+        width: var(--size-w__block-container_desktop);
+        height: 100%;
+    }
+}
+
+.main .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.textarea {
+    caret-color: var(--textarea-color--caret);
+
+    color: var(--textarea-color--text);
+
+    background: var(--textarea-color--background);
+    // background: transparent;
+    border-radius: var(--textarea-radius--border);
+    border: 1px solid var(--textarea-color--border);
+    // border: 4px solid red;
+    // border: 1px solid var(--key-color--common_normal);
+    width: 100%;
+    height: 140px;
+    resize: none;
+
+    padding: var(--textarea-padding);
+    &::placeholder {
+        color: var(--textarea-color--text);
+        opacity: 0.5;
+    }
+}
+
+.keyboard {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: start;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    border-radius: 8px;
+    .key {
+        position: relative;
+        z-index: 2;
+        border: 1px solid var(--key-color--border);
+        .p1 {
+            // font-weight: 700;
+            font-size: 20px;
+            color: var(--key-color--text);
+        }
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: var(--key-radius--border);
+        // border: 1px solid red;
+        background: var(--key-color--common_normal);
+        width: 64px;
+        height: 64px;
+        transform: scale(100%, 100%);
+        transition: transform 0.05s ease-in-out;
+
+
+
+            --keyTapAnimation-scale-release: scale(100%, 100%);
+            --keyTapAnimation-scale-press: scale(90%, 90%);
+            --keyTapAnimation-color-release: var(--key-color--common_normal);
+            --keyTapAnimation-color-press: var(--key-color--common_hover);
+            animation-name: keyTapReleaseAnimation;
+            animation-duration: 0.08s;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+
+        @media (hover: hover) {
+            &:hover {
+                transition: background 0.2s ease-in-out;
+                background: var(--key-color--common_hover);
+            }
+
+        }
+        &.tap{
+            // background: var(--key-color--common_hover);
+            // transform: scale(95%, 95%);
+
+
+            animation-name: keyTapPressAnimation;
+            animation-duration: 0.08s;
+            animation-timing-function: ease-in;
+            animation-fill-mode: forwards;
+        }
+    }
+}
+
+
+
+@keyframes keyTapPressAnimation {
+    0% { transform: var(--keyTapAnimation-scale-release);
+        background: var(--keyTapAnimation-color-press);}
+    100% { transform: var(--keyTapAnimation-scale-press);
+        background: var(--keyTapAnimation-color-press);}
+}
+@keyframes keyTapReleaseAnimation {
+    0% { transform: var(--keyTapAnimation-scale-press);
+        background: var(--keyTapAnimation-color-press);}
+    99% { background: var(--keyTapAnimation-color-press); }
+    100% { transform: var(--keyTapAnimation-scale-release);}
+}
+
+
+.keyboard {
+    .backspace { width: 184px;}
+    .tab { width: 96px;}
+    .delete { width: 72px;}
+    .caps-lock { width: 128px;}
+    .enter { width: 200px;}
+    .shift-left { width: 160px;}
+    .shift-right { width: 88px;}
+    // .arrow-up { width: 184px;}
+    // .language { width: 184px;}
+    .control-left { width: 96px;}
+    .meta-left { width: 80px;}
+    .alt-left { width: 80px;}
+    .space { width: 472px;}
+    .alt-right { width: 80px;}
+    .control-right { width: 96px;}
+    // .arrow-left { width: 184px;}
+    // .arrow-down { width: 184px;}
+    // .arrow-right { width: 184px;}
+    .backspace,
+    .tab,
+    .delete,
+    .caps-lock,
+    .enter,
+    .shift-left,
+    .shift-right,
+    .control-left,
+    .meta-left,
+    .alt-left,
+    .alt-right,
+    .control-right{
+        background: var(--key-color--special_normal);
+        --keyTapAnimation-scale-press: scale(90%, 90%);
+        --keyTapAnimation-color-release: var(--key-color--special_normal);
+        --keyTapAnimation-color-press: var(--key-color--special_hover);
+        @media (hover: hover) {
+            &:hover {
+                transition: background 0.2s ease-in-out;
+                background: var(--key-color--special_hover);
+            }
+
+        }
+        &.enable {
+            background: var(--key-color--special-active_normal);
+            --keyTapAnimation-color-press: var(--key-color--special-active_hover);
+            @media (hover: hover) {
+                &:hover {
+                    transition: background 0.2s ease-in-out;
+                    background: var(--key-color--special-active_hover);
+                }
+            }
+
+        }
+    }
+
+    .arrow-up,
+    .arrow-left,
+    .arrow-down,
+    .arrow-right {
+        background: var(--key-color--common_normal);
+        --keyTapAnimation-color-release: var(--key-color--arrow_normal);
+        --keyTapAnimation-color-press: var(--key-color--arrow_hover);
+        @media (hover: hover) {
+            &:hover {
+                transition: background 0.2s ease-in-out;
+                background: var(--key-color--arrow_hover);
+            }
+
+        }
+    }
+
+    .language {
+        background: var(--key-color--additional_normal);
+        --keyTapAnimation-color-release: var(--key-color--additional_normal);
+        --keyTapAnimation-color-press: var(--key-color--additional_hover);
+        @media (hover: hover) {
+            &:hover {
+                transition: background 0.2s ease-in-out;
+                background: var(--key-color--additional_hover);
+            }
+
+        }
+    }
+
+    // fix scales for non square keys
+    .backspace { --keyTapAnimation-scale-press: scale(calc((100%/184) * ( 184 - (64/100*10))), 90%);}
+    .tab { --keyTapAnimation-scale-press: scale(calc((100%/96) * ( 96 - (64/100*10))), 90%); }
+    .delete { --keyTapAnimation-scale-press: scale(calc((100%/72) * ( 72 - (64/100*10))), 90%); }
+    .caps-lock { --keyTapAnimation-scale-press: scale(calc((100%/128) * ( 128 - (64/100*10))), 90%); }
+    .enter { --keyTapAnimation-scale-press: scale(calc((100%/200) * ( 200 - (64/100*10))), 90%); }
+    .shift-left { --keyTapAnimation-scale-press: scale(calc((100%/160) * ( 160 - (64/100*10))), 90%); }
+    .shift-right { --keyTapAnimation-scale-press: scale(calc((100%/88) * ( 88 - (64/100*10))), 90%); }
+    .control-left { --keyTapAnimation-scale-press: scale(calc((100%/96) * ( 96 - (64/100*10))), 90%); }
+    .meta-left { --keyTapAnimation-scale-press: scale(calc((100%/80) * ( 80 - (64/100*10))), 90%); }
+    .alt-left { --keyTapAnimation-scale-press: scale(calc((100%/80) * ( 80 - (64/100*10))), 90%); }
+    .space { --keyTapAnimation-scale-press: scale(calc((100%/472) * ( 472 - (64/100*10))), 90%); }
+    .alt-right { --keyTapAnimation-scale-press: scale(calc((100%/80) * ( 80 - (64/100*10))), 90%); }
+    .control-right { --keyTapAnimation-scale-press: scale(calc((100%/96) * ( 96 - (64/100*10))), 90%); }
+}
+
+.key-press-fx {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--press-fx-color);
+    width: 100px;
+    height: 100px;
+    border-radius: 10000px;
+    z-index: -1000;
+
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.key-press-fx-run {
+    z-index: 0;
+    animation-name: upScale;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+
+@keyframes upScale {
+    0% { opacity: 0.2;
+        transform: scale(0%);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(400%);
+    }
+}
+
+
+
+// >----------------------------------------------------------------<
+// >                             FOOTER                             <
+// >----------------------------------------------------------------<
+
+// .footer {
+//     height: var(--size-h__block-container-footer_desktop);
+//     background-color: var(--color-0-0);
+//     .container {
+//         max-width: var(--size-w__block-container_desktop);
+//         height: 100%;
+//     }
+// }
+
+.blackout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
