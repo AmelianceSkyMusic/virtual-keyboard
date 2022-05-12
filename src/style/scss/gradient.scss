@@ -55,7 +55,7 @@
     --background-color--background: linear-gradient(82.62deg, #FF005C 0%, #FF3D00 90.48%);
     --key-color--text: rgb(255, 255, 255);
 
-    --press-fx-color: rgb(255, 255, 255);
+    --press-fx-color: rgb(255, 255, 255, 0.5);
 
     --blackout-color: rgb(0, 0, 0);
 
@@ -83,7 +83,9 @@
     --key-color--border: transparent;
     --textarea-color--border: transparent;
     --textarea-radius--border: 8px;
-    --key-radius--border: 8px;
+    --key-radius--border: 10000px;
 
     --textarea-padding: 16px;
+
+    --scroll-radius--border: 10000px
 }

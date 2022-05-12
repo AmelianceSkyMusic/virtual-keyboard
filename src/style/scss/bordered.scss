@@ -51,7 +51,7 @@
     // --key-color--arrow_normal:  invert(             $key-color--arrow_normal          );
     // --key-color--arrow_hover: invert(               $key-color--arrow_hover           );
     --textarea-color--text: rgba(255, 30, 50, 1);
-    --textarea-color--background: rgba(255, 30, 50, 0.2 );
+    --textarea-color--background: rgba(255, 30, 50, 0.0 );
     --background-color--background: rgba(255, 255, 255, 1);
     --key-color--text: rgba(255, 30, 50, 1);
 
@@ -86,4 +86,6 @@
     --key-radius--border: 10000px;
 
     --textarea-padding: 16px;
+
+    --scroll-radius--border: none;
 }
